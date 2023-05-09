@@ -1,9 +1,30 @@
 import { useForm } from "react-hook-form";
+import { LoginDataType } from "../../types/LoginDataType";
+import { useRouter } from "next/router";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
-  function soumettreDonnees(donnees: any) {
-    console.log(donnees);
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginDataType>();
+
+  function SendLoginData(data: LoginDataType) {
+    fetch("http://localhost:8080/users/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          router.push("/chat");
+        }
+        return response.json();
+      })
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
   }
 
   return (
@@ -18,7 +39,7 @@ const Login = () => {
               Sign in to your account
             </h1>
             <form
-              onSubmit={handleSubmit(soumettreDonnees)}
+              onSubmit={handleSubmit(SendLoginData)}
               className="space-y-4 md:space-y-6"
               action="#"
             >
