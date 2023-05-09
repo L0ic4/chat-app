@@ -2,9 +2,11 @@ import { useForm } from "react-hook-form";
 import { LoginDataType } from "../../types/LoginDataType";
 import { useRouter } from "next/router";
 import { UserData } from "@/types/UserDataType";
-
+import Link from "next/link";
+import useCheckbox from "@/hooks/CheckboxHook";
 
 const Login = () => {
+  const [isChecked, handleCheckboxChange] = useCheckbox(false);
   const router = useRouter();
   const {
     register,
@@ -25,7 +27,9 @@ const Login = () => {
         return response.json();
       })
       .then((data: UserData) => {
-        localStorage.setItem("jetonJWT", data.token);
+        if (isChecked) {
+          localStorage.setItem("jetonJWT", data.token);
+        }
       })
       .catch((error) => console.error(error));
   }
@@ -87,6 +91,8 @@ const Login = () => {
                       id="remember"
                       aria-describedby="remember"
                       type="checkbox"
+                      checked={isChecked}
+                      onChange={handleCheckboxChange}
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                     />
                   </div>
@@ -99,12 +105,6 @@ const Login = () => {
                     </label>
                   </div>
                 </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Forgot password?
-                </a>
               </div>
               <button
                 type="submit"
@@ -113,13 +113,13 @@ const Login = () => {
                 Login
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
-                <a
-                  href="#"
+                Don’t have an account yet ?{" "}
+                <Link
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  href="/auth/signin"
                 >
-                  Sign in
-                </a>
+                  Sign In
+                </Link>
               </p>
             </form>
           </div>
