@@ -4,7 +4,7 @@ module.exports = {
     "./app/**/*.{ts,tsx}",
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
- 
+
     // Or if using `src` directory:
     "./src/**/*.{ts,tsx}",
   ],
@@ -12,4 +12,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};

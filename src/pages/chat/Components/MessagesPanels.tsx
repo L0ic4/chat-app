@@ -9,7 +9,12 @@ const MessagesPanels = () => {
       <ul className="overflow-auto h-[32rem]">
         <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
         <li>
-          <MessagesPreview profile_pic={""} name={""} last_message={""} sent_time={""} />
+          <MessagesPreview
+            profile_pic={""}
+            name={""}
+            last_message={""}
+            sent_time={""}
+          />
         </li>
       </ul>
     </div>
