@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { LoginDataType } from "../../types/LoginDataType";
 import { useRouter } from "next/router";
+import { UserData } from "@/types/UserDataType";
+
 
 const Login = () => {
   const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -23,7 +24,9 @@ const Login = () => {
         }
         return response.json();
       })
-      .then((data) => console.log(data))
+      .then((data: UserData) => {
+        localStorage.setItem("jetonJWT", data.token);
+      })
       .catch((error) => console.error(error));
   }
 
