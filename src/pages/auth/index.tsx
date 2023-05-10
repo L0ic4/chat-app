@@ -8,11 +8,7 @@ import useCheckbox from "@/hooks/CheckboxHook";
 const Login = () => {
   const [isChecked, handleCheckboxChange] = useCheckbox(false);
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginDataType>();
+  const { register, handleSubmit } = useForm<LoginDataType>();
 
   function SendLoginData(data: LoginDataType) {
     fetch("http://localhost:8080/users/login", {
@@ -28,7 +24,7 @@ const Login = () => {
       })
       .then((data: UserData) => {
         if (isChecked) {
-          localStorage.setItem("jetonJWT", data.token);
+          localStorage.setItem("jetonJWT", data.user.token);
         }
       })
       .catch((error) => console.error(error));

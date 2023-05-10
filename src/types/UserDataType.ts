@@ -1,12 +1,15 @@
 export interface UserData {
-  bio: string;
-  createdAt: string;
-  deletedAt: string;
-  email: string;
-  googleId: string;
-  id: number;
-  name: string;
-  status: number;
-  token: string;
-  updatedAt: string;
+  status: boolean;
+  user: {
+    id: number;
+    email: string;
+    name: string;
+    googleId: string | null;
+    bio: string | null;
+    status: number;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string | null;
+    token: string;
+  };
 }

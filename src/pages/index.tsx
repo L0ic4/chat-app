@@ -9,9 +9,8 @@ export default function Home() {
 
     if (token) {
       router.push("/chat");
-      // localStorage.removeItem("jetonJWT");
     } else {
-      router.push("/auth/login");
+      router.push("/auth");
     }
   }, [router]);
 
