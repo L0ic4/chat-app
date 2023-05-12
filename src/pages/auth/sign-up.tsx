@@ -1,26 +1,29 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { SigninDataType } from "@/types/SigninDataType";
+import { SigninDataType, UserData } from "@/utils/types";
 import { useRouter } from "next/router";
+import { signUpSchema } from "@/utils/Schemas";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { apiRequest } from "@/utils/fetchFromAPI";
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<SigninDataType>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<SigninDataType>({ resolver: yupResolver(signUpSchema) });
 
-  function SendSigninData(data: SigninDataType) {
-    fetch("http://localhost:8080/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (response.status === 201) {
-          router.push("/auth/login");
-        }
-        return response.json();
-      })
-      .catch((error) => console.error(error));
-  }
+  const SendSigninData = async (data: SigninDataType): Promise<void> => {
+    const endpoint = "users";
+    const method = "post";
+    const response = await apiRequest<UserData>(endpoint, method, data);
+    if (response.status === 201) {
+      router.push("/auth/login");
+      reset();
+    }
+  };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -37,7 +40,6 @@ const SignUp = () => {
             </h1>
             <form
               className="space-y-4 md:space-y-6"
-              action="#"
               onSubmit={handleSubmit(SendSigninData)}
             >
               <div>
@@ -55,6 +57,7 @@ const SignUp = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="John"
                 />
+                {errors.name && <p>{errors.name.message}</p>}
               </div>
               <div>
                 <label
@@ -74,6 +77,7 @@ const SignUp = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
                 />
+                {errors.email && <p>{errors.email.message}</p>}
               </div>
               <div>
                 <label
@@ -104,7 +108,8 @@ const SignUp = () => {
                   rows={4}
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Write your thoughts here..."
-                ></textarea>
+                />
+                {errors.bio && <p>{errors.bio.message}</p>}
               </div>
               <button
                 type="submit"

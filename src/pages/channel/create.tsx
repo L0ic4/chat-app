@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { SigninDataType } from "@/types/SigninDataType";
+import { SigninDataType } from "@/utils/types/SigninDataType";
 import { useRouter } from "next/router";
 
 const Create = () => {

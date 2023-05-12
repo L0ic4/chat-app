@@ -1,16 +1,11 @@
 import { useForm } from "react-hook-form";
-import { LoginDataType } from "@/types/LoginDataType";
+import { LoginDataType, UserData } from "@/utils/types";
 import { useRouter } from "next/router";
-import { UserData } from "@/types/UserDataType";
 import Link from "next/link";
 import useCheckbox from "@/hooks/CheckboxHook";
-import * as yup from "yup";
+import { loginSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-const loginSchema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required().min(2).max(120),
-});
+import { apiRequest } from "@/utils/fetchFromAPI";
 
 const Login: React.FC = () => {
   const [isChecked, handleCheckboxChange] = useCheckbox(false);
@@ -22,26 +17,18 @@ const Login: React.FC = () => {
     reset,
   } = useForm<LoginDataType>({ resolver: yupResolver(loginSchema) });
 
-  function SendLoginData(data: LoginDataType) {
-    fetch("http://localhost:8080/users/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          reset();
-          router.push("/chat");
-        }
-        return response.json();
-      })
-      .then((data: UserData) => {
-        if (isChecked) {
-          localStorage.setItem("jetonJWT", data.user.token);
-        }
-      })
-      .catch((error) => console.error(error));
-  }
+  const SendLoginData = async (data: LoginDataType): Promise<void> => {
+    const endpoint = "users/login";
+    const method = "post";
+    const response = await apiRequest<UserData>(endpoint, method, data);
+    if (response.status === 200) {
+      router.push("/chat");
+      reset();
+    }
+    if (isChecked) {
+      localStorage.setItem("jetonJWT", response.data.user.token);
+    }
+  };
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
