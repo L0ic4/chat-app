@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { SigninDataType } from "@/types/SigninDataType";
-import { UserData } from "@/types/UserDataType";
 import { useRouter } from "next/router";
 
-const Signin = () => {
+const SignUp = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm<SigninDataType>();
 
@@ -120,7 +119,7 @@ const Signin = () => {
                 Already have an account ?{" "}
                 <Link
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  href="/auth"
+                  href="/auth/login"
                 >
                   Login
                 </Link>
@@ -133,4 +132,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignUp;

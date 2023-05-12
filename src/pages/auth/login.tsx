@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { LoginDataType } from "../../types/LoginDataType";
+import { LoginDataType } from "@/types/LoginDataType";
 import { useRouter } from "next/router";
 import { UserData } from "@/types/UserDataType";
 import Link from "next/link";
@@ -112,7 +112,7 @@ const Login = () => {
                 Don’t have an account yet ?{" "}
                 <Link
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  href="/auth/signin"
+                  href="/auth/sign-up"
                 >
                   Sign In
                 </Link>
