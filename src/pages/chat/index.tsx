@@ -36,7 +36,7 @@ const ChatPanels = () => {
 
 const index = () => {
   return (
-    <div className="border rounded lg:grid lg:grid-cols-3 ">
+    <div className="bg-gray-50 border rounded lg:grid lg:grid-cols-3 ">
       <MessagesPanels />
       <ChatPanels />
     </div>

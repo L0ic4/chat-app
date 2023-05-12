@@ -4,11 +4,23 @@ import { useRouter } from "next/router";
 import { UserData } from "@/types/UserDataType";
 import Link from "next/link";
 import useCheckbox from "@/hooks/CheckboxHook";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-const Login = () => {
+const loginSchema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().required().min(2).max(120),
+});
+
+const Login: React.FC = () => {
   const [isChecked, handleCheckboxChange] = useCheckbox(false);
   const router = useRouter();
-  const { register, handleSubmit } = useForm<LoginDataType>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<LoginDataType>({ resolver: yupResolver(loginSchema) });
 
   function SendLoginData(data: LoginDataType) {
     fetch("http://localhost:8080/users/login", {
@@ -18,6 +30,7 @@ const Login = () => {
     })
       .then((response) => {
         if (response.status === 200) {
+          reset();
           router.push("/chat");
         }
         return response.json();
@@ -44,7 +57,6 @@ const Login = () => {
             <form
               onSubmit={handleSubmit(SendLoginData)}
               className="space-y-4 md:space-y-6"
-              action="#"
             >
               <div>
                 <label
@@ -56,6 +68,7 @@ const Login = () => {
                 <input
                   {...register("email", {
                     pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    required: true,
                   })}
                   type="email"
                   name="email"
@@ -63,6 +76,7 @@ const Login = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
                 />
+                {errors.email && <p>{errors.email.message}</p>}
               </div>
               <div>
                 <label
@@ -79,6 +93,7 @@ const Login = () => {
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
+                {errors.password && <p>{errors.password.message}</p>}
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
