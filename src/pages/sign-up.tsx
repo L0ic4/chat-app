@@ -1,29 +1,20 @@
 import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { SigninDataType, UserData } from "@/utils/types";
-import { useRouter } from "next/router";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { SigninDataType } from "@/utils/types";
 import { signUpSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { apiRequest } from "@/utils/fetchFromAPI";
+import { sendAuthData } from "@/helpers/SendData";
 
-const SignUp: React.FC = () => {
-  const router = useRouter();
+const SignUp = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<SigninDataType>({ resolver: yupResolver(signUpSchema) });
 
-  const SendSigninData = async (data: SigninDataType): Promise<void> => {
-    const endpoint = "users";
-    const method = "post";
-    const response = await apiRequest<UserData>(endpoint, method, data);
-    if (response.status === 201) {
-      router.push("/auth/login");
-      reset();
-    }
-  };
+  const onSubmit: SubmitHandler<SigninDataType> = (data) =>
+  sendAuthData("users", "post", data);
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -40,11 +31,11 @@ const SignUp: React.FC = () => {
             </h1>
             <form
               className="space-y-4 md:space-y-6"
-              onSubmit={handleSubmit(SendSigninData)}
+              onSubmit={handleSubmit(onSubmit)}
             >
               <div>
                 <label
-                  htmlFor="username"
+                  htmlFor="name"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Your Name
@@ -97,19 +88,21 @@ const SignUp: React.FC = () => {
               </div>
               <div>
                 <label
-                  htmlFor="message"
+                  htmlFor="confirmPassword"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your Bio
+                  Confirm Password
                 </label>
-                <textarea
-                  {...register("bio")}
-                  id="message"
-                  rows={4}
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Write your thoughts here..."
+                <input
+                  {...register("confirmPassword", {
+                    required: true,
+                  })}
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  placeholder="••••••••"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
-                {errors.bio && <p>{errors.bio.message}</p>}
               </div>
               <button
                 type="submit"

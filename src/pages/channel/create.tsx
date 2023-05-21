@@ -1,26 +1,20 @@
-import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { SigninDataType } from "@/utils/types/SigninDataType";
-import { useRouter } from "next/router";
-
+import { ChannelDataType } from "@/utils/types";
+import { channelSchema } from "@/utils/Schemas";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { sendChannelData } from "@/helpers/SendData";
+import requireAuth from "@/security/ProtectedRoute";
 const Create = () => {
-  const router = useRouter();
-  const { register, handleSubmit } = useForm<SigninDataType>();
+  const {
+    register,
+    handleSubmit,
+  } = useForm<ChannelDataType>({ resolver: yupResolver(channelSchema) });
 
-  function SendSigninData(data: SigninDataType) {
-    fetch("http://localhost:8080/channel", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (response.status === 201) {
-          router.push("/chat");
-        }
-        return response.json();
-      })
-      .catch((error) => console.error(error));
-  }
+  const onSubmit = (data: ChannelDataType) => {
+    console.log(data);
+    sendChannelData("channel", "post", data);
+  };
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -38,11 +32,11 @@ const Create = () => {
             <form
               className="space-y-4 md:space-y-6"
               action="#"
-              onSubmit={handleSubmit(SendSigninData)}
+              onSubmit={handleSubmit(onSubmit)}
             >
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="name"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Channel name
@@ -61,22 +55,19 @@ const Create = () => {
                   Select an option
                 </label>
                 <select
-                  id="countries"
+                  {...register("type", { required: true })}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option selected>Private</option>
-                  <option value="Public">Public</option>
+                  <option value="private">private</option>
+                  <option value="public">public</option>
                 </select>
               </div>
               <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Channel member
                 </label>
                 <input
-                  {...register("name", { required: true })}
+                  {...register("members", { required: true })}
                   type="text"
                   name="name"
                   id="name"
@@ -97,4 +88,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default requireAuth(Create);

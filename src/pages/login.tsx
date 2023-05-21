@@ -1,34 +1,19 @@
 import { useForm } from "react-hook-form";
-import { LoginDataType, UserData } from "@/utils/types";
-import { useRouter } from "next/router";
+import { LoginDataType } from "@/utils/types";
 import Link from "next/link";
-import useCheckbox from "@/hooks/CheckboxHook";
 import { loginSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { apiRequest } from "@/utils/fetchFromAPI";
+import { sendAuthData } from "@/helpers/SendData";
 
-const Login: React.FC = () => {
-  const [isChecked, handleCheckboxChange] = useCheckbox(false);
-  const router = useRouter();
+const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<LoginDataType>({ resolver: yupResolver(loginSchema) });
 
-  const SendLoginData = async (data: LoginDataType): Promise<void> => {
-    const endpoint = "users/login";
-    const method = "post";
-    const response = await apiRequest<UserData>(endpoint, method, data);
-    if (response.status === 200) {
-      router.push("/chat");
-      reset();
-    }
-    if (isChecked) {
-      localStorage.setItem("jetonJWT", response.data.user.token);
-    }
-  };
+  const onSubmit = (data: LoginDataType) =>
+    sendAuthData("users/login", "post", data);
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -42,7 +27,7 @@ const Login: React.FC = () => {
               Sign in to your account
             </h1>
             <form
-              onSubmit={handleSubmit(SendLoginData)}
+              onSubmit={handleSubmit(onSubmit)}
               className="space-y-4 md:space-y-6"
             >
               <div>
@@ -84,16 +69,6 @@ const Login: React.FC = () => {
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={handleCheckboxChange}
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    />
-                  </div>
                   <div className="ml-3 text-sm">
                     <label
                       htmlFor="remember"
