@@ -28,7 +28,7 @@ const SignUp: React.FC = () => {
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
-          href="#"
+          href="@/pages/sign-up#"
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
         >
           Chat-App
@@ -121,7 +121,7 @@ const SignUp: React.FC = () => {
                 Already have an account ?{" "}
                 <Link
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  href="/auth/login"
+                  href="/login"
                 >
                   Login
                 </Link>

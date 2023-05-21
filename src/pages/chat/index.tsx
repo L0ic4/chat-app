@@ -1,8 +1,8 @@
 import React from "react";
-import MessagesPanels from "./Components/MessagesPanels";
-import MessagesLists from "./Components/MessagesLists";
-import ChatHeaders from "./Components/ChatHeaders";
-import MessagesSender from "./Components/MessagerSender";
+import MessagesPanels from "../../Components/MessagesPanels";
+import MessagesLists from "../../Components/MessagesLists";
+import ChatHeaders from "../../Components/ChatHeaders";
+import MessagesSender from "../../Components/MessagerSender";
 
 const messagesList = [
   { id: 1, messages: "Bonjour, comment vas-tu ?", sender_or_receiver: true },
