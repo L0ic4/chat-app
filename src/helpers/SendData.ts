@@ -12,8 +12,12 @@ export const sendAuthData = async (
   if (response.status === 201) {
     await router.push("/login");
   } else if (response.status === 200) {
-    Cookies.set("jetonJWT", response.data.user.token);
-    router.push("/chat");
+    if (response.data.user) {
+      if (response.data.user.token != null) {
+        Cookies.set("jetonJWT", response.data.user.token);
+      }
+    }
+    await router.push("/profile");
   }
 };
 
