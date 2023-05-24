@@ -1,6 +1,6 @@
 import { UserData } from "@/utils/types";
 import requireAuth from "@/security/ProtectedRoute";
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps } from "next";
 import { getUserDetails } from "@/helpers/ReceiveData";
 
 const Profile = ({ user }: { user: UserData }) => {

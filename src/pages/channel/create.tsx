@@ -1,4 +1,4 @@
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { ChannelDataType, UserListData } from "@/utils/types";
 import { channelSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -35,7 +35,7 @@ const Create = () => {
     label: user.name,
   }));
 
-  const { register, handleSubmit, control } = useForm<ChannelDataType>({
+  const { register, handleSubmit } = useForm<ChannelDataType>({
     resolver: yupResolver(channelSchema),
   });
   const onSubmit = (data: ChannelDataType) => {

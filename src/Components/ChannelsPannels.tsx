@@ -5,7 +5,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import Link from "next/link";
 import { ChannelDataType2 } from "@/utils/types";
 
-const MessagesPanels = (props:ChannelDataType2) => {
+const MessagesPanels = (props: ChannelDataType2) => {
   return (
     <div className="border-r border-gray-300 lg:col-span-1">
       <SearchBar />
@@ -13,7 +13,7 @@ const MessagesPanels = (props:ChannelDataType2) => {
       <ul className="overflow-auto h-[32rem]">
         <li>
           {props.channel.map((item) => (
-            <MessagesPreview status={false} channel={item}/>
+            <MessagesPreview status={false} channel={item} />
           ))}
 
           <Link

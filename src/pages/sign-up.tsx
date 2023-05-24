@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { SigninDataType } from "@/utils/types";
 import { signUpSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,7 +13,7 @@ const SignUp = () => {
   } = useForm<SigninDataType>({ resolver: yupResolver(signUpSchema) });
 
   const onSubmit: SubmitHandler<SigninDataType> = (data) =>
-  sendAuthData("users", "post", data);
+    sendAuthData("users", "post", data);
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">

@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+
 interface ChatHeadersProps {
   name: string;
   profile_pic: string;

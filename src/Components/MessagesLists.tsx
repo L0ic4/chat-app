@@ -6,6 +6,7 @@ interface MessagesListProps {
   messages: string;
   sender_or_receiver: boolean;
 }
+
 interface Props {
   Donne: MessagesListProps[];
 }

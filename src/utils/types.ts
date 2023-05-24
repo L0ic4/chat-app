@@ -2,6 +2,7 @@ export interface LoginDataType {
   email?: string;
   password?: string;
 }
+
 export interface SigninDataType {
   email?: string;
   password?: string;
@@ -9,6 +10,7 @@ export interface SigninDataType {
   name?: string;
   bio?: string;
 }
+
 export interface UserData {
   status?: boolean;
   user?: {
@@ -24,6 +26,7 @@ export interface UserData {
     token?: string;
   };
 }
+
 interface User {
   id?: number;
   name?: string;
