@@ -19,9 +19,14 @@ export const signUpSchema = yup.object().shape({
   bio: yup.string(),
 });
 
-
 export const channelSchema = yup.object().shape({
-  name: yup.string().required(),
-  type: yup.string().required(),
-  members : yup.string(),
-})
+  name: yup.string().required("Le nom du canal est requis"),
+  type: yup
+    .string()
+    .oneOf(["public", "private"], "Le type du canal doit être public ou privé")
+    .required("Le type du canal est requis"),
+  members: yup
+    .array()
+    .of(yup.string())
+    .required("Les membres du canal sont requis"),
+});

@@ -1,18 +1,47 @@
-import { useForm } from "react-hook-form";
-import { ChannelDataType } from "@/utils/types";
+import { useForm, Controller } from "react-hook-form";
+import { ChannelDataType, UserListData } from "@/utils/types";
 import { channelSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { sendChannelData } from "@/helpers/SendData";
 import requireAuth from "@/security/ProtectedRoute";
-const Create = () => {
-  const {
-    register,
-    handleSubmit,
-  } = useForm<ChannelDataType>({ resolver: yupResolver(channelSchema) });
+import Select from "react-select";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
+const Create = () => {
+  const [donnees, setDonnees] = useState<UserListData>();
+
+  const token = Cookies.get("jetonJWT");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/users", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setDonnees(response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données :", error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
+
+  const options = (donnees?.users || []).map((user) => ({
+    value: user.id,
+    label: user.name,
+  }));
+
+  const { register, handleSubmit, control } = useForm<ChannelDataType>({
+    resolver: yupResolver(channelSchema),
+  });
   const onSubmit = (data: ChannelDataType) => {
     console.log(data);
-    sendChannelData("channel", "post", data);
+
+    // sendChannelData("channel", "post", data);
   };
 
   return (
@@ -66,12 +95,11 @@ const Create = () => {
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Channel member
                 </label>
-                <input
-                  {...register("members", { required: true })}
-                  type="text"
-                  name="name"
-                  id="name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                <Select
+                  isClearable
+                  options={options}
+                  isMulti
+                  {...register("members")}
                 />
               </div>
               <button
@@ -87,5 +115,4 @@ const Create = () => {
     </section>
   );
 };
-
 export default requireAuth(Create);
