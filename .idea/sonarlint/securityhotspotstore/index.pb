@@ -1,21 +1,65 @@
 
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-P
- src/pages/channel/channel_id.tsx,f\b\fbfe39c7501bbb5ae2c7ae6d6e84f7a6a57d58a2
-L
-src/Components/SearchBar.tsx,b\6\b6f4d780aa52691083ab73c9810560075708c6f6
+9
+	yarn.lock,5\3\53585a096fe3a3b96321113856ae62602995a33b
+<
+package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+]
+-.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 Q
 !src/Components/MessagesPanels.tsx,0\c\0c41d777bce310a096daaabd5a34abd2b0a26bef
+R
+"src/Components/MessagesPreview.tsx,3\4\342b7ff23a95d4da8e5b39ae6e8f5ae9292ec4c5
+I
+src/utils/fetchFromAPI.ts,6\6\6684853ebf58091b5f679059754aa9cdef995a90
+G
+src/helpers/SendData.ts,9\a\9ab912a3b3857ee4d7fb057e9750460cd627d69f
+C
+src/pages/index.tsx,d\2\d2d3bb60cab7e8c869b5fdf0a820b7edf2fc7859
+B
+src/pages/_app.tsx,2\e\2eefa41a18ed6ea3f58b3748f9e5559a28e77646
+G
+src/pages/_document.tsx,0\5\052f85edfc3fbb9d129530f0f8b191ff6c16f7ce
+O
+src/security/ProtectedRoute.tsx,4\4\4444f6b126f63e71c07fad6e4804cf0b49de27e8
+T
+$src/Components/ChannelsPreviewer.tsx,2\a\2a8656f6ab2a847f45780a7fd2388eeb2962837a
+H
+src/pages/chat/index.tsx,d\a\da811481d6b78aec7116176d88f71b12ecc94854
+L
+src/Components/SearchBar.tsx,b\6\b6f4d780aa52691083ab73c9810560075708c6f6
+E
+src/pages/sign-up.tsx,5\8\58ad4eca6eb9a980535f0d674c3b29dc05701b4c
+C
+src/pages/login.tsx,0\6\060acf31311c30f307d56f09e240513adb94fb94
+L
+src/pages/channel/create.tsx,0\d\0d0be69fb843797282bffdee6069ac15d75983e6
+P
+ src/pages/channel/channel_id.tsx,f\b\fbfe39c7501bbb5ae2c7ae6d6e84f7a6a57d58a2
+D
+src/utils/Schemas.ts,f\e\fe089294ba5507ba51dfa01e3d768408162c2305
 Q
 !src/Components/MessagerSender.tsx,f\a\fa3a0b23aafbe4a382d2e197cf4b9a49e6feac8e
 R
 "src/Components/MessagesContent.tsx,2\e\2eb5148eec28f6dbac1b7c2752761983c0241063
 P
  src/Components/MessagesLists.tsx,6\1\61504fd578afcf037628201b370cd65ac3f15297
-R
-"src/Components/MessagesPreview.tsx,3\4\342b7ff23a95d4da8e5b39ae6e8f5ae9292ec4c5
 N
 src/Components/ChatHeaders.tsx,4\d\4dedee8a09c05dc6d92e318c178ceaafdc8f0a84
+J
+src/styles/Home.module.css,6\2\621afd95ec43b70ff468925cb774e7d486548a18
+F
+src/styles/globals.css,f\4\f451456fbd2ac1cc3825255bfe3cd58d1971e047
+M
+src/pages/message/user_id.tsx,d\d\ddb5ba22c1170d498e064ceb7432b9e16c07a04d
+U
+%src/pages/channel/edit/channel_id.tsx,f\3\f30ecd237d4257a69f681e7a21a8369e1543bbd0
+B
+src/utils/types.ts,f\5\f51d97a396a91e089d771f27b21a34c8b4b918a8
+R
+"src/Components/ChannelsPannels.tsx,4\6\46c4e7632751052a9e3041f6b4e787931acb6c00
 E
 src/pages/profile.tsx,1\7\177e3c3b29c02d77409e8f0af6382f065d82aa87

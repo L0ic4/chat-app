@@ -9,9 +9,9 @@ export default function Home() {
     const TOKEN = Cookies.get("jetonJWT");
 
     if (TOKEN) {
-      router.push("/chat");
+      router.push("/chat").then(r => console.log("success"));
     } else {
-      router.push("/login");
+      router.push("/login").then(r => console.log("success"));
     }
   }, [router]);
 

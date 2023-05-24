@@ -9,8 +9,8 @@ const TOKEN = Cookies.get("jetonJWT");
 export const apiRequest = async <T>(
   endpoint: string,
   method: "get" | "post" | "put" | "delete",
-  data?: any,
-  requireToken = false
+  requireToken: boolean,
+  data?: any
 ): Promise<AxiosResponse<T>> => {
   const headers: AxiosHeaders = {
     "Content-Type": "application/json",
@@ -18,7 +18,6 @@ export const apiRequest = async <T>(
   };
 
   if (requireToken) {
-    
     if (!TOKEN) throw new Error("Jetton JWT non disponible");
     headers["Authorization"] = `Bearer ${TOKEN}`;
   }
