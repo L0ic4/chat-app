@@ -1,37 +1,35 @@
 import { UserData } from "@/utils/types";
 import { GetServerSideProps, NextPage } from "next";
-import Cookies from "js-cookie";
 import axios from "axios";
 import requireAuth from "@/security/ProtectedRoute";
-interface UserDetailsProps {
-  userDetails: UserData;
-}
 
-export const getServerSideProps = async (context: any) => {
-  const TOKEN = Cookies.get("jetonJWT");
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const token = context.req.cookies.jetonJWT;
+
   try {
-    const response = await axios.get("localhost:8080/user", {
+    const response = await axios.get("http://localhost:8080/user", {
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-
-    const userDetails = response.data;
-
+    const user = response.data;
     return {
       props: {
-        userDetails,
+        user,
       },
     };
   } catch (error) {
     console.error(error);
     return {
-      props: {},
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
     };
   }
 };
 
-const Profile: NextPage<UserDetailsProps> = ({ userDetails }) => {
+const Profile = ({ user }: { user: UserData }) => {
   return (
     <table className="table-auto">
       <thead>
@@ -47,13 +45,13 @@ const Profile: NextPage<UserDetailsProps> = ({ userDetails }) => {
       </thead>
       <tbody>
         <tr>
-          <td>{userDetails.user.id}</td>
-          <td>{userDetails.user.email}</td>
-          <td>{userDetails.user.name}</td>
-          <td>{userDetails.user.bio}</td>
-          <td>{userDetails.user.createdAt}</td>
-          <td>{userDetails.user.updatedAt}</td>
-          <td>{userDetails.user.deletedAt}</td>
+          <td>{user.user.id}</td>
+          <td>{user.user.email}</td>
+          <td>{user.user.name}</td>
+          <td>{user.user.bio}</td>
+          <td>{user.user.createdAt}</td>
+          <td>{user.user.updatedAt}</td>
+          <td>{user.user.deletedAt}</td>
         </tr>
       </tbody>
     </table>
