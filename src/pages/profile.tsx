@@ -1,7 +1,7 @@
 import { UserData } from "@/utils/types";
 import requireAuth from "@/security/ProtectedRoute";
 import { GetServerSideProps } from "next";
-import { getUserDetails } from "@/helpers/ReceiveData";
+import { getUserDetails } from "@/pages/api/ReceiveData";
 
 const Profile = ({ user }: { user: UserData }) => {
   return (
@@ -19,13 +19,13 @@ const Profile = ({ user }: { user: UserData }) => {
       </thead>
       <tbody>
         <tr>
-          <td>{user.user.id}</td>
-          <td>{user.user.email}</td>
-          <td>{user.user.name}</td>
-          <td>{user.user.bio}</td>
-          <td>{user.user.createdAt}</td>
-          <td>{user.user.updatedAt}</td>
-          <td>{user.user.deletedAt}</td>
+          <td>{user.user?.id}</td>
+          <td>{user.user?.email}</td>
+          <td>{user.user?.name}</td>
+          <td>{user.user?.bio}</td>
+          <td>{user.user?.createdAt}</td>
+          <td>{user.user?.updatedAt}</td>
+          <td>{user.user?.deletedAt}</td>
         </tr>
       </tbody>
     </table>

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { SigninDataType } from "@/utils/types";
 import { signUpSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { sendAuthData } from "@/helpers/SendData";
+import { sendAuthData } from "@/utils/SendData";
 
 const SignUp = () => {
   const {

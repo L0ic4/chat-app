@@ -1,14 +1,14 @@
 export interface LoginDataType {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }
 
 export interface SigninDataType {
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
-  name?: string;
-  bio?: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  name: string;
+  bio: string;
 }
 
 export interface UserData {

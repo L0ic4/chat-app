@@ -3,7 +3,7 @@ import { LoginDataType } from "@/utils/types";
 import Link from "next/link";
 import { loginSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { sendAuthData } from "@/helpers/SendData";
+import { sendAuthData } from "@/utils/SendData";
 
 const Login = () => {
   const {
