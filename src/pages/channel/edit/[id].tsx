@@ -51,18 +51,15 @@ const Create = () => {
     fetchChannel();
   }, [rooter.query.id, token]);
 
-  console.log(Channel?.channel?.name);
-
   const options = (donnees?.users || []).map((user) => ({
     value: user.id,
     label: user.name,
   }));
 
-  const { register, handleSubmit, control } = useForm<ChannelDataType>({
+  const {handleSubmit, control } = useForm<ChannelDataType>({
     resolver: yupResolver(channelSchema),
   });
   const onSubmit = (data: ChannelDataType) => {
-    console.log(data);
     sendChannelData("channel", "post", data);
   };
 

@@ -40,11 +40,8 @@ const Create = () => {
     resolver: yupResolver(channelSchema),
   });
   const onSubmit = (data: ChannelDataType) => {
-    console.log(data);
     sendChannelData("channel", "post", data);
   };
-
-  const [countryValue, setCountryValue] = useState(null);
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
