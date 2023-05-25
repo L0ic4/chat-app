@@ -60,3 +60,11 @@ export interface ChannelDataType {
   type?: "public" | "private";
   members?: [];
 }
+
+export interface updateUserData {
+  name: string;
+  oldPassword: string;
+  password: string;
+  confirmPassword: string;
+  bio: string;
+}

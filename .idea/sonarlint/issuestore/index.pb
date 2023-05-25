@@ -1,8 +1,6 @@
 
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-M
-src/pages/message/user_id.tsx,d\d\ddb5ba22c1170d498e064ceb7432b9e16c07a04d
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 9
@@ -27,12 +25,6 @@ L
 src/Components/SearchBar.tsx,b\6\b6f4d780aa52691083ab73c9810560075708c6f6
 R
 "src/Components/ChannelsPannels.tsx,4\6\46c4e7632751052a9e3041f6b4e787931acb6c00
-L
-src/pages/channel/create.tsx,0\d\0d0be69fb843797282bffdee6069ac15d75983e6
-J
-src/pages/channel/[id].tsx,4\3\439d595c973b40a6d55ea6ae7b16265d881d3c2a
-D
-src/utils/Schemas.ts,f\e\fe089294ba5507ba51dfa01e3d768408162c2305
 Q
 !src/Components/MessagerSender.tsx,f\a\fa3a0b23aafbe4a382d2e197cf4b9a49e6feac8e
 R
@@ -45,25 +37,31 @@ J
 src/styles/Home.module.css,6\2\621afd95ec43b70ff468925cb774e7d486548a18
 F
 src/styles/globals.css,f\4\f451456fbd2ac1cc3825255bfe3cd58d1971e047
-O
-src/pages/channel/edit/[id].tsx,2\9\295c883c91e2b1a90a29ec1217b691288299bf46
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
-E
-src/pages/profile.tsx,1\7\177e3c3b29c02d77409e8f0af6382f065d82aa87
 L
 src/pages/api/ReceiveData.ts,3\0\306e15cfa68cf02a324d6a460ddc6a5547575c07
 E
 src/utils/SendData.ts,8\2\827b156931013816b040715a894c7c9a392dd993
-E
-src/pages/sign-up.tsx,5\8\58ad4eca6eb9a980535f0d674c3b29dc05701b4c
-B
-src/utils/types.ts,f\5\f51d97a396a91e089d771f27b21a34c8b4b918a8
-C
-src/pages/login.tsx,0\6\060acf31311c30f307d56f09e240513adb94fb94
 H
 src/pages/chat/index.tsx,d\a\da811481d6b78aec7116176d88f71b12ecc94854
 J
 src/pages/message/[id].tsx,8\6\8627769b4a2cad44412af4076cff3304f7538a18
+C
+src/pages/login.tsx,0\6\060acf31311c30f307d56f09e240513adb94fb94
+E
+src/pages/sign-up.tsx,5\8\58ad4eca6eb9a980535f0d674c3b29dc05701b4c
+B
+src/utils/types.ts,f\5\f51d97a396a91e089d771f27b21a34c8b4b918a8
+J
+src/pages/channel/[id].tsx,4\3\439d595c973b40a6d55ea6ae7b16265d881d3c2a
+L
+src/pages/channel/create.tsx,0\d\0d0be69fb843797282bffdee6069ac15d75983e6
+O
+src/pages/channel/edit/[id].tsx,2\9\295c883c91e2b1a90a29ec1217b691288299bf46
+D
+src/utils/Schemas.ts,f\e\fe089294ba5507ba51dfa01e3d768408162c2305
+E
+src/pages/profile.tsx,1\7\177e3c3b29c02d77409e8f0af6382f065d82aa87

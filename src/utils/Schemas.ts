@@ -30,3 +30,14 @@ export const channelSchema = yup.object().shape({
     .of(yup.string())
     .required("Les membres du canal sont requis"),
 });
+
+export const updateUserSchema = yup.object().shape({
+  name: yup.string().required("Le nom du canal est requis"),
+  oldPassword :yup.string().required("L'encien mot de passe est requis"),
+  password:yup.string().required("Le nouveau mot de passe est requis"),
+  confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], "Les mots de passe doivent correspondre")
+      .required("La confirmation du mot de passe est requise"),
+  bio:yup.string()
+});

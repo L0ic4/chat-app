@@ -6,13 +6,14 @@ import router from "next/router";
 export const sendAuthData = async (
   endpoint: string,
   method: "get" | "post" | "put" | "delete",
-  data: any
+  data: any,
+  isToken: boolean = false
 ): Promise<void> => {
-  const response = await apiRequest<UserData>(endpoint, method, false, data);
+  const response = await apiRequest<UserData>(endpoint, method, isToken, data);
   if (response.status === 201) {
     await router.push("/login");
   } else if (response.status === 200) {
-    Cookies.set("jetonJWT", response.data.user.token);
+    Cookies.set("jetonJWT", response?.data?.user?.token);
     await router.push("/profile");
   }
 };
