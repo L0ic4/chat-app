@@ -26,6 +26,22 @@ export interface UserData {
     token?: string;
   };
 }
+export interface ChannelData {
+  status?: boolean;
+  channel?: {
+    id?: number;
+    name?: string;
+    type?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    ownerId?: number;
+    owner?: {
+      id?: number;
+      name?: string;
+      email?: string;
+    };
+  };
+}
 
 interface User {
   id?: number;
