@@ -1,66 +1,32 @@
 import { Controller, useForm } from "react-hook-form";
-import { ChannelData, ChannelDataType, UserListData } from "@/utils/types";
-import { channelSchema } from "@/utils/Schemas";
+import { ChannelData, UserListData, updateChannelData } from "@/utils/types";
+import { updateChannelSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import requireAuth from "@/security/ProtectedRoute";
 import Select from "react-select";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { sendChannelData } from "@/utils/SendData";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
+import { getUsersAndChannel } from "@/pages/api/EditChannelAPI";
 
-const Create = () => {
+type CreateChannelPageProps = {
+  users: UserListData;
+  channel: ChannelData;
+};
+
+const Create = ({ users, channel }: CreateChannelPageProps) => {
   const rooter = useRouter();
-  const [donnees, setDonnees] = useState<UserListData>();
-  const [Channel, SetChannel] = useState<ChannelData>();
 
-  const token = Cookies.get("jetonJWT");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setDonnees(response.data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données :", error);
-      }
-    };
-
-    const fetchChannel = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/channel/${rooter.query.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        SetChannel(response.data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données :", error);
-      }
-    };
-
-    fetchData();
-    fetchChannel();
-  }, [rooter.query.id, token]);
-
-  const options = (donnees?.users || []).map((user) => ({
+  const options = users.users.map((user) => ({
     value: user.id,
     label: user.name,
   }));
 
-  const {handleSubmit, control } = useForm<ChannelDataType>({
-    resolver: yupResolver(channelSchema),
+  const { handleSubmit, control } = useForm<updateChannelData>({
+    resolver: yupResolver(updateChannelSchema),
   });
-  const onSubmit = (data: ChannelDataType) => {
-    sendChannelData("channel", "post", data);
+  const onSubmit = (data: updateChannelData) => {
+    sendChannelData(`channels/${rooter.query.id}/members`, "post", data);
   };
 
   return (
@@ -75,7 +41,7 @@ const Create = () => {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Create channel
+              Update Channel
             </h1>
             <form
               className="createChannelForm space-y-4 md:space-y-6"
@@ -89,7 +55,7 @@ const Create = () => {
                   Channel name
                 </label>
                 <input
-                  value={Channel?.channel?.name}
+                  value={channel?.channel?.name}
                   disabled
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
@@ -102,7 +68,7 @@ const Create = () => {
                   disabled
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option value="private">{Channel?.channel?.type}</option>
+                  <option value="private">{channel?.channel?.type}</option>
                 </select>
               </div>
               <div>
@@ -114,8 +80,8 @@ const Create = () => {
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <Select
-                      // value={options.filter((c) => value?.includes(c.value))}
-                      value={options.find((c) => c.value === value)}
+                      value={options.filter((c) => value?.includes(c.value))}
+                      // value={options.find((c) => c.value === value)}
                       onChange={(val) => onChange(val.map((c) => c.value))}
                       options={options}
                       isMulti
@@ -128,7 +94,7 @@ const Create = () => {
                 type="submit"
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Create
+                Update
               </button>
             </form>
           </div>
@@ -137,4 +103,6 @@ const Create = () => {
     </section>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = getUsersAndChannel;
 export default requireAuth(Create);

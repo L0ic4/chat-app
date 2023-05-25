@@ -4,34 +4,12 @@ import { channelSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import requireAuth from "@/security/ProtectedRoute";
 import Select from "react-select";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { sendChannelData } from "@/utils/SendData";
+import { GetServerSideProps } from "next";
+import { getAllUsers } from "../api/ReceiveData";
 
-const Create = () => {
-  const [donnees, setDonnees] = useState<UserListData>();
-
-  const token = Cookies.get("jetonJWT");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setDonnees(response.data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données :", error);
-      }
-    };
-
-    fetchData();
-  }, [token]);
-
-  const options = (donnees?.users || []).map((user) => ({
+const Create = ({ users }: { users: UserListData }) => {
+  const options = (users.users || []).map((user) => ({
     value: user.id,
     label: user.name,
   }));
@@ -120,4 +98,5 @@ const Create = () => {
     </section>
   );
 };
+export const getServerSideProps: GetServerSideProps = getAllUsers;
 export default requireAuth(Create);

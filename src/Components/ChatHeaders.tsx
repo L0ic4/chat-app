@@ -10,13 +10,6 @@ interface ChatHeadersProps {
 const ChatHeaders = (props: ChatHeadersProps) => {
   return (
     <div className="relative flex items-center p-3 border-b border-gray-300">
-      <Image
-        width={10}
-        height={10}
-        className="object-cover rounded-full"
-        src={props.profile_pic}
-        alt="username"
-      />
       <span className="block ml-2 font-bold text-gray-600">
         {props.name || "koto"}
       </span>

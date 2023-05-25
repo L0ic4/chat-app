@@ -25,6 +25,6 @@ export const sendChannelData = async (
 ): Promise<void> => {
   const response = await apiRequest<UserData>(endpoint, method, true, data);
   if (response.status === 201) {
-    await router.push("/chat");
+    await router.push("/profile");
   }
 };

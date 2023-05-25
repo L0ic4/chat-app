@@ -1,4 +1,4 @@
-import { UserData, UserListData } from "@/utils/types";
+import { ChannelData, UserData, UserListData } from "@/utils/types";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 
@@ -31,32 +31,25 @@ export const getAllUsers: GetServerSideProps = async (context) => {
   try {
     const token = context.req.cookies.jetonJWT;
     const response = await axios.get<UserListData>(
-      "http://localhost:8080/user",
+      "http://localhost:8080/users",
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    const users = response.data.users;
-    if (users) {
-      return {
-        props: {
-          users,
-        },
-      };
-    } else {
-      return {
-        props: {
-          users: [],
-        },
-      };
-    }
+    const users = response.data;
+    return {
+      props: {
+        users,
+      },
+    };
   } catch (error) {
     console.error(error);
     return {
-      props: {
-        users: [],
+      redirect: {
+        destination: "/login",
+        permanent: false,
       },
     };
   }

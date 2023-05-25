@@ -45,8 +45,6 @@ S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
-H
-src/pages/chat/index.tsx,d\a\da811481d6b78aec7116176d88f71b12ecc94854
 J
 src/pages/message/[id].tsx,8\6\8627769b4a2cad44412af4076cff3304f7538a18
 C
@@ -59,9 +57,9 @@ J
 src/pages/channel/[id].tsx,4\3\439d595c973b40a6d55ea6ae7b16265d881d3c2a
 L
 src/pages/channel/create.tsx,0\d\0d0be69fb843797282bffdee6069ac15d75983e6
-O
-src/pages/channel/edit/[id].tsx,2\9\295c883c91e2b1a90a29ec1217b691288299bf46
-E
-src/pages/profile.tsx,1\7\177e3c3b29c02d77409e8f0af6382f065d82aa87
 D
 src/utils/Schemas.ts,f\e\fe089294ba5507ba51dfa01e3d768408162c2305
+E
+src/pages/profile.tsx,1\7\177e3c3b29c02d77409e8f0af6382f065d82aa87
+O
+src/pages/channel/edit/[id].tsx,2\9\295c883c91e2b1a90a29ec1217b691288299bf46

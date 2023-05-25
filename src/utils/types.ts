@@ -43,16 +43,16 @@ export interface ChannelData {
   };
 }
 
-interface User {
-  id?: number;
-  name?: string;
-  email?: string;
-  bio?: string;
-}
-
 export interface UserListData {
-  status?: boolean;
-  users?: User[];
+  status: boolean;
+  users: [
+    {
+      id: number;
+      name: string;
+      email: string;
+      bio: string;
+    }
+  ];
 }
 
 export interface ChannelDataType {
@@ -67,4 +67,29 @@ export interface updateUserData {
   password: string;
   confirmPassword: string;
   bio: string;
+}
+
+export interface updateChannelData {
+  members: [];
+}
+
+export interface MessageData {
+  status?: boolean;
+  messages?: [
+    {
+      id?: number;
+      content?: string;
+      createdAt?: string;
+      updatedAt?: string;
+      deletedAt?: string;
+      senderId?: number;
+      recipientId?: number;
+      channelId?: number;
+      sender?: {
+        id?: number;
+        name: string;
+        email?: string;
+      };
+    }
+  ];
 }
