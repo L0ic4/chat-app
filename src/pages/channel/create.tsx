@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { ChannelDataType, UserListData } from "@/utils/types";
 import { channelSchema } from "@/utils/Schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,6 +7,7 @@ import Select from "react-select";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { sendChannelData } from "@/utils/SendData";
 
 const Create = () => {
   const [donnees, setDonnees] = useState<UserListData>();
@@ -35,15 +36,15 @@ const Create = () => {
     label: user.name,
   }));
 
-  const { register, handleSubmit } = useForm<ChannelDataType>({
+  const { register, handleSubmit, control } = useForm<ChannelDataType>({
     resolver: yupResolver(channelSchema),
   });
   const onSubmit = (data: ChannelDataType) => {
     console.log(data);
-
-    // sendChannelData("channel", "post", data);
+    sendChannelData("channel", "post", data);
   };
 
+  const [countryValue, setCountryValue] = useState(null);
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -59,8 +60,7 @@ const Create = () => {
               Create channel
             </h1>
             <form
-              className="space-y-4 md:space-y-6"
-              action="#"
+              className="createChannelForm space-y-4 md:space-y-6"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div>
@@ -95,11 +95,19 @@ const Create = () => {
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Channel member
                 </label>
-                <Select
-                  isClearable
-                  options={options}
-                  isMulti
-                  {...register("members")}
+                <Controller
+                  name="members"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Select
+                      // value={options.filter((c) => value?.includes(c.value))}
+                      value={options.find((c) => c.value === value)}
+                      onChange={(val) => onChange(val.map((c) => c.value))}
+                      options={options}
+                      isMulti
+                    />
+                  )}
+                  rules={{ required: true }}
                 />
               </div>
               <button

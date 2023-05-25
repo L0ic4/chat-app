@@ -28,7 +28,7 @@ const Login = () => {
             </h1>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="space-y-4 md:space-y-6"
+              className="loginForm space-y-4 md:space-y-6"
             >
               <div>
                 <label
