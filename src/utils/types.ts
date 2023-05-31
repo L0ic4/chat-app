@@ -93,3 +93,7 @@ export interface MessageData {
     }
   ];
 }
+
+export interface SendMessagesData {
+  content: string;
+}

@@ -1,7 +1,7 @@
 import { updateUserData, UserData } from "@/utils/types";
 import requireAuth from "@/security/ProtectedRoute";
 import { GetServerSideProps } from "next";
-import { getUserDetails } from "@/pages/api/ReceiveData";
+import { getUserDetails } from "@/api/API";
 import { sendAuthData } from "@/utils/SendData";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

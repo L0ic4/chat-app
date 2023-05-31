@@ -7,7 +7,7 @@ import Select from "react-select";
 import { sendChannelData } from "@/utils/SendData";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
-import { getUsersAndChannel } from "@/pages/api/EditChannelAPI";
+import { getUsersAndChannel } from "@/api/API";
 
 type CreateChannelPageProps = {
   users: UserListData;

@@ -6,7 +6,7 @@ import requireAuth from "@/security/ProtectedRoute";
 import Select from "react-select";
 import { sendChannelData } from "@/utils/SendData";
 import { GetServerSideProps } from "next";
-import { getAllUsers } from "../api/ReceiveData";
+import { getAllUsers } from  "@/api/API";
 
 const Create = ({ users }: { users: UserListData }) => {
   const options = (users.users || []).map((user) => ({

@@ -1,5 +1,5 @@
 import { apiRequest } from "@/utils/fetchFromAPI";
-import { UserData } from "@/utils/types";
+import { MessageData, UserData } from "@/utils/types";
 import Cookies from "js-cookie";
 import router from "next/router";
 
@@ -26,5 +26,16 @@ export const sendChannelData = async (
   const response = await apiRequest<UserData>(endpoint, method, true, data);
   if (response.status === 201) {
     await router.push("/profile");
+  }
+};
+
+export const sendMessage = async (
+  endpoint: string,
+  method: "get" | "post" | "put" | "delete",
+  data: any
+): Promise<void> => {
+  const response = await apiRequest<MessageData>(endpoint, method, true, data);
+  if (response.status === 201) {
+    router.reload();
   }
 };

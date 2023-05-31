@@ -48,3 +48,7 @@ export const updateChannelSchema = yup.object().shape({
     .of(yup.string())
     .required("Les membres du canal sont requis"),
 });
+
+export const SendMessageSchema = yup.object().shape({
+  content: yup.string(),
+});
