@@ -1,41 +1,32 @@
 import { SendMessageSchema, loginSchema } from "@/utils/Schemas";
 import { MessageData, SendMessagesData } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { sendMessage } from "@/utils/SendData";
 import { getMessages } from "@/api/API";
 import { GetServerSideProps } from "next";
 import requireAuth from "@/security/ProtectedRoute";
-
-const MessageShow = ({ messageData }: { messageData: MessageData }) => {
-  return (
-    <div>
-      <div>
-        <h2>{messageData?.messages?.[0].content}</h2>
-        <p>{messageData?.status}</p>
-      </div>
-    </div>
-  );
-};
+import router, { useRouter } from "next/router";
 
 const MessageSender = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<SendMessagesData>({ resolver: yupResolver(SendMessageSchema) });
 
-  const onSubmit = (data: SendMessagesData) => {
+  const CreateMessage = (data: SendMessagesData, channelId: number | null) => {
+    const { id } = router.query;
     const Data = {
       content: data.content,
-      recipientId: 1,
-      channelId: null,
+      recipientId: id,
+      channelId: channelId,
     };
-    reset();
-    console.log(Data);
-    sendMessage("message", "post", Data);
+    return Data;
+  };
+
+  const onSubmit = (data: SendMessagesData) => {
+    sendMessage("message", "post", CreateMessage(data, null));
   };
 
   return (
@@ -56,13 +47,25 @@ const MessageSender = () => {
   );
 };
 
-const UserMessage = () => {
+const UserMessage = ({ messageData }: { messageData: MessageData }) => {
+  const router = useRouter();
+  const id = router.query.id;
+  const messages = messageData.messages?.slice().reverse();
   return (
     <>
-      <MessageShow />
+      <div className="message-container">
+        {messages?.map((message) => (
+          <div key={message.id}>
+            <div className={message.senderId != id ? "text-right" : ""}>
+              {message.content}
+            </div>
+          </div>
+        ))}
+      </div>
       <MessageSender />
     </>
   );
 };
+
 export const getServerSideProps: GetServerSideProps = getMessages;
 export default requireAuth(UserMessage);
