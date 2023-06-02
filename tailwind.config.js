@@ -7,9 +7,11 @@ module.exports = {
 
     // Or if using `src` directory:
     "./src/**/*.{ts,tsx}",
+
+    "./node_modules/flowbite-react/**/*.js",
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 };

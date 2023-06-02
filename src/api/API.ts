@@ -7,6 +7,38 @@ import {
   UserListData,
 } from "@/utils/types";
 
+export const getMessageChannel: GetServerSideProps = async (context) => {
+  try {
+    const { id } = context.query;
+    const token = context.req.cookies.jetonJWT;
+
+    const ChannelResponse = await axios.get<MessageData>(
+      `http://localhost:8080/messages/channel/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const messageData = ChannelResponse.data;
+
+    return {
+      props: {
+        messageData,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+};
+
 export const getMessages: GetServerSideProps = async (context) => {
   try {
     const { id } = context.query;
@@ -20,7 +52,7 @@ export const getMessages: GetServerSideProps = async (context) => {
         },
       }
     );
-    
+
     const messageData = ChannelResponse.data;
 
     return {

@@ -30,7 +30,7 @@ const MessageSender = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form name="sendMessageForm" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
           Your message
@@ -57,7 +57,14 @@ const UserMessage = ({ messageData }: { messageData: MessageData }) => {
         {messages?.map((message) => (
           <div key={message.id}>
             <div className={message.senderId != id ? "text-right" : ""}>
-              {message.content}
+              <span className="text-xs">
+                {message.senderId != id ? (
+                  <p>Me :</p>
+                ) : (
+                  <p>{message.sender?.name + " : "}</p>
+                )}
+              </span>
+              <p className="text-lg"> {message.content}</p>
             </div>
           </div>
         ))}

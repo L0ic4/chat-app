@@ -32,7 +32,7 @@ export const channelSchema = yup.object().shape({
 });
 
 export const updateUserSchema = yup.object().shape({
-  name: yup.string().required("Le nom du canal est requis"),
+  name: yup.string(),
   oldPassword: yup.string().required("L'encien mot de passe est requis"),
   password: yup.string().required("Le nouveau mot de passe est requis"),
   confirmPassword: yup

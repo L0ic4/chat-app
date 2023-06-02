@@ -62,11 +62,11 @@ export interface ChannelDataType {
 }
 
 export interface updateUserData {
-  name: string;
-  oldPassword: string;
-  password: string;
-  confirmPassword: string;
-  bio: string;
+  name?: string;
+  oldPassword?: string;
+  password?: string;
+  confirmPassword?: string;
+  bio?: string;
 }
 
 export interface updateChannelData {
@@ -97,3 +97,8 @@ export interface MessageData {
 export interface SendMessagesData {
   content: string;
 }
+
+export type CreateChannelPageProps = {
+  users: UserListData;
+  channel: ChannelData;
+};
