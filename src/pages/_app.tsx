@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import { useRouter } from "next/router";
-import { SideBar } from "@/Components/sideBar";
+import { SideBar } from "@/Components/sidebar/sideBar";
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {

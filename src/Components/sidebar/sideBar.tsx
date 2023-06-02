@@ -7,29 +7,21 @@ export const SideBar = () => {
     <Sidebar className="flex-initial">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="#">
-            <p>Dashboard</p>
+          <Sidebar.Item href="/profile">
+            <p>Profile</p>
           </Sidebar.Item>
-          <Sidebar.Collapse label="E-commerce">
-            <Sidebar.Item href="#">Products</Sidebar.Item>
+          <Sidebar.Collapse label="Users">
+            <Sidebar.Item href="#">Sales</Sidebar.Item>
+            <Sidebar.Item href="#">Refunds</Sidebar.Item>
+            <Sidebar.Item href="#">Shipping</Sidebar.Item>
+          </Sidebar.Collapse>
+          <Sidebar.Collapse label="Channels">
             <Sidebar.Item href="#">Sales</Sidebar.Item>
             <Sidebar.Item href="#">Refunds</Sidebar.Item>
             <Sidebar.Item href="#">Shipping</Sidebar.Item>
           </Sidebar.Collapse>
           <Sidebar.Item href="#">
-            <p>Inbox</p>
-          </Sidebar.Item>
-          <Sidebar.Item href="#">
-            <p>Users</p>
-          </Sidebar.Item>
-          <Sidebar.Item href="#">
-            <p>Products</p>
-          </Sidebar.Item>
-          <Sidebar.Item href="#">
-            <p>Sign In</p>
-          </Sidebar.Item>
-          <Sidebar.Item href="#">
-            <p>Sign Up</p>
+            <p>Log-Out</p>
           </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>

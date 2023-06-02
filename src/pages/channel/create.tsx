@@ -1,5 +1,5 @@
-import { CreateChannelForm } from "@/Components/createChannelForm";
-import { Form } from "@/Components/form";
+import { CreateChannelForm } from "@/Components/channel/createChannelForm";
+import { Form } from "@/Components/form/form";
 import { getAllUsers } from "@/api/API";
 import requireAuth from "@/security/ProtectedRoute";
 import { UserListData } from "@/utils/types";

@@ -1,6 +1,6 @@
 import requireAuth from "@/security/ProtectedRoute";
-import { Form } from "@/Components/form";
-import { EditProfileForm } from "@/Components/editProfileForm";
+import { Form } from "@/Components/form/form";
+import { EditProfileForm } from "@/Components/profile/editProfileForm";
 import { getUserDetails } from "@/api/API";
 import { GetServerSideProps } from "next";
 import { UserData } from "@/utils/types";

@@ -1,5 +1,6 @@
-import { EditChannelForm } from "@/Components/editChannelForm";
-import { Form } from "@/Components/form";
+
+import { EditChannelForm } from "@/Components/channel/editChannelForm";
+import { Form } from "@/Components/form/form";
 import { getUsersAndChannel } from "@/api/API";
 import requireAuth from "@/security/ProtectedRoute";
 import { CreateChannelPageProps } from "@/utils/types";
