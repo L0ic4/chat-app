@@ -1,4 +1,3 @@
-
 import { updateUserSchema } from "@/utils/Schemas";
 import { sendAuthData } from "@/utils/SendData";
 import { UserData, UpdateUserData } from "@/utils/types";

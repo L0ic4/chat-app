@@ -1,9 +1,6 @@
 import { updateChannelSchema } from "@/utils/Schemas";
 import { sendChannelData } from "@/utils/SendData";
-import {
-  CreateChannelPageProps,
-  UpdateChannelData,
-} from "@/utils/types";
+import { CreateChannelPageProps, UpdateChannelData } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { channel } from "diagnostics_channel";
 import Select from "react-select";

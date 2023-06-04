@@ -6,7 +6,9 @@ import { GetServerSideProps } from "next";
 import { UserData } from "@/utils/types";
 
 const Profile = ({ user }: { user: UserData }) => {
-  return <Form title="Your profile" component={<EditProfileForm user={user} />} />;
+  return (
+    <Form title="Your profile" component={<EditProfileForm user={user} />} />
+  );
 };
 
 export default requireAuth(Profile);

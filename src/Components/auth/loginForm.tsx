@@ -17,29 +17,29 @@ export const LoginForm = () => {
     sendAuthData("users/login", "post", data);
 
   return (
-      <Form
-        name={""}
-        onSubmitFunction={handleSubmit(onSubmit)}
-        buttonText={"Login"}
-        isLogin={true}
-      >
-        <FormInput
-          label={"Your email"}
-          type={"email"}
-          placeholder={"name@company.com"}
-          register={register}
-          name={"email"}
-          errors={errors}
-        />
+    <Form
+      name={""}
+      onSubmitFunction={handleSubmit(onSubmit)}
+      buttonText={"Login"}
+      isLogin={true}
+    >
+      <FormInput
+        label={"Your email"}
+        type={"email"}
+        placeholder={"name@company.com"}
+        register={register}
+        name={"email"}
+        errors={errors}
+      />
 
-        <FormInput
-          label={"Your password"}
-          type={"password"}
-          placeholder={"••••••••"}
-          register={register}
-          name={"password"}
-          errors={errors}
-        />
-      </Form>
+      <FormInput
+        label={"Your password"}
+        type={"password"}
+        placeholder={"••••••••"}
+        register={register}
+        name={"password"}
+        errors={errors}
+      />
+    </Form>
   );
 };
