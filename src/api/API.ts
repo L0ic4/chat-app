@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import axios from "axios";
 import {
   ChannelData,
+  ChannelListData,
   MessageData,
   UserData,
   UserListData,
@@ -99,6 +100,46 @@ export const getUsersAndChannel: GetServerSideProps = async (context) => {
       props: {
         users: usersData,
         channel: channelData,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+};
+
+export const getUsersAndChannels: GetServerSideProps = async (context) => {
+  try {
+    const token = context.req.cookies.jetonJWT;
+    const usersResponse = await axios.get<UserListData>(
+      "http://localhost:8080/users",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const users = usersResponse.data;
+
+    const channelsResponse = await axios.get<ChannelListData>(
+      "http://localhost:8080/channels",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const channels = channelsResponse.data;
+
+    return {
+      props: {
+        users,
+        channels,
       },
     };
   } catch (error) {

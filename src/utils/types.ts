@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface LoginDataType {
   email: string;
   password: string;
@@ -55,13 +57,32 @@ export interface UserListData {
   ];
 }
 
+export interface ChannelListData {
+  status: boolean;
+  channels: [
+    {
+      id?: number;
+      name?: string;
+      type?: string;
+      createdAt?: string;
+      updatedAt?: string;
+      ownerId?: number;
+      owner?: {
+        id?: number;
+        name?: string;
+        email?: string;
+      };
+    }
+  ];
+}
+
 export interface ChannelDataType {
   name?: string;
   type?: "public" | "private";
   members?: [];
 }
 
-export interface updateUserData {
+export interface UpdateUserData {
   name?: string;
   oldPassword?: string;
   password?: string;
@@ -69,7 +90,7 @@ export interface updateUserData {
   bio?: string;
 }
 
-export interface updateChannelData {
+export interface UpdateChannelData {
   members: [];
 }
 
@@ -102,3 +123,21 @@ export type CreateChannelPageProps = {
   users: UserListData;
   channel: ChannelData;
 };
+
+export interface FormInputProps {
+  label: string;
+  type: string;
+  placeholder?: string;
+  register: any;
+  name: string;
+  errors: any;
+}
+export interface AuthFormProps {
+  formName: string;
+  onSubmit: any;
+  submitButtonText: string;
+  bottomText: string;
+  bottomLink: string;
+  bottomLinkText: string;
+  children: ReactNode;
+}

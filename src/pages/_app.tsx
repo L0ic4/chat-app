@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import { useRouter } from "next/router";
-import { SideBar } from "@/Components/sidebar/sideBar";
+import { SideBar } from "@/pages/sideBar";
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const showSidebar = !["/login", "/sign-up"].includes(router.pathname);
   return (
     <div className="flex">
-      {showSidebar && <SideBar />}
+      {/* {showSidebar && <SideBar />} */}
       <Component {...pageProps} />
     </div>
   );

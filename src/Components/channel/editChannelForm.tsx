@@ -1,13 +1,16 @@
 import { updateChannelSchema } from "@/utils/Schemas";
 import { sendChannelData } from "@/utils/SendData";
-import { ChannelData, CreateChannelPageProps, UserListData, updateChannelData } from "@/utils/types";
+import {
+  CreateChannelPageProps,
+  UpdateChannelData,
+} from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { channel } from "diagnostics_channel";
-import { Select } from "flowbite-react";
+import Select from "react-select";
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-
+import { Form } from "../form/form";
 
 export const EditChannelForm = ({ users, channel }: CreateChannelPageProps) => {
   const rooter = useRouter();
@@ -17,17 +20,17 @@ export const EditChannelForm = ({ users, channel }: CreateChannelPageProps) => {
     label: user.name,
   }));
 
-  const { handleSubmit, control } = useForm<updateChannelData>({
+  const { handleSubmit, control } = useForm<UpdateChannelData>({
     resolver: yupResolver(updateChannelSchema),
   });
-  const onSubmit = (data: updateChannelData) => {
+  const onSubmit = (data: UpdateChannelData) => {
     sendChannelData(`channels/${rooter.query.id}/members`, "post", data);
   };
   return (
-    <form
-      name="editChannelForm"
-      className="createChannelForm space-y-4 md:space-y-6"
-      onSubmit={handleSubmit(onSubmit)}
+    <Form
+      name={""}
+      onSubmitFunction={handleSubmit(onSubmit)}
+      buttonText={"Save"}
     >
       <div>
         <label
@@ -72,12 +75,6 @@ export const EditChannelForm = ({ users, channel }: CreateChannelPageProps) => {
           rules={{ required: true }}
         />
       </div>
-      <button
-        type="submit"
-        className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-      >
-        Update
-      </button>
-    </form>
+    </Form>
   );
 };

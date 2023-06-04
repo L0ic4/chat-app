@@ -1,30 +1,58 @@
-import React, { ReactNode } from "react";
+import { Button } from "flowbite-react";
+import Link from "next/link";
+import { ReactNode } from "react";
+
+interface FormProps {
+  name: string;
+  onSubmitFunction: any;
+  buttonText: string;
+  isLogin?: boolean;
+  isSignUp?: boolean;
+  children: ReactNode;
+}
 
 export const Form = ({
-  title,
-  component,
-}: {
-  title: string;
-  component: ReactNode;
-}) => {
+  name,
+  onSubmitFunction,
+  buttonText,
+  isLogin,
+  isSignUp,
+  children,
+}: FormProps) => {
   return (
-    <section className="flex-initial w-full bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a
-          href="@/pages/sign-up#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        >
-          Chat-App
-        </a>
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              {title}
-            </h1>
-            {component}
-          </div>
+    <form
+      name={name}
+      onSubmit={onSubmitFunction}
+      className="flex max-w-md flex-col gap-4"
+    >
+      {children}
+      <Button type="submit">{buttonText}</Button>
+      {isLogin && (
+        <div>
+          <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+            Don’t have an account yet?{" "}
+            <Link
+              className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+              href="/sign-up"
+            >
+              Sign In
+            </Link>
+          </p>
         </div>
-      </div>
-    </section>
+      )}
+      {isSignUp && (
+        <div>
+          <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+            Already have an account ?{" "}
+            <Link
+              className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+              href="/login"
+            >
+              Login
+            </Link>
+          </p>
+        </div>
+      )}
+    </form>
   );
 };
