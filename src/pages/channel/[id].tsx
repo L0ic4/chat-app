@@ -1,12 +1,12 @@
-import { SendMessageSchema, loginSchema } from "@/utils/Schemas";
-import { MessageData, SendMessagesData } from "@/utils/types";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { sendMessage } from "@/utils/SendData";
-import { getMessageChannel, getMessages } from "@/api/API";
-import { GetServerSideProps } from "next";
+import {SendMessageSchema} from "@/utils/Schemas";
+import {MessageData, SendMessagesData} from "@/utils/types";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {useForm} from "react-hook-form";
+import {sendMessage} from "@/utils/SendData";
+import {getMessageChannel} from "@/api/API";
+import {GetServerSideProps} from "next";
 import requireAuth from "@/security/ProtectedRoute";
-import router, { useRouter } from "next/router";
+import router, {useRouter} from "next/router";
 
 const MessageSender = () => {
   const {
@@ -17,15 +17,19 @@ const MessageSender = () => {
 
   const CreateMessage = (data: SendMessagesData) => {
     const { id } = router.query;
-    const Data = {
+    return {
       content: data.content,
       channelId: id,
     };
-    return Data;
   };
 
-  const onSubmit = (data: SendMessagesData) => {
-    sendMessage("message", "post", CreateMessage(data));
+  const onSubmit = async (data: SendMessagesData): Promise<void> => {
+    sendMessage({
+      endpoint: "message",
+      method: "post",
+      data: CreateMessage(data),
+      isToken: true,
+    });
   };
 
   return (

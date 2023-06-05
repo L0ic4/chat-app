@@ -2,7 +2,6 @@ import { updateChannelSchema } from "@/utils/Schemas";
 import { sendChannelData } from "@/utils/SendData";
 import { CreateChannelPageProps, UpdateChannelData } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { channel } from "diagnostics_channel";
 import Select from "react-select";
 import { useRouter } from "next/router";
 import React from "react";
@@ -11,7 +10,6 @@ import { Form } from "../form/form";
 
 export const EditChannelForm = ({ users, channel }: CreateChannelPageProps) => {
   const rooter = useRouter();
-
   const options = users.users.map((user) => ({
     value: user.id,
     label: user.name,
@@ -21,14 +19,14 @@ export const EditChannelForm = ({ users, channel }: CreateChannelPageProps) => {
     resolver: yupResolver(updateChannelSchema),
   });
   const onSubmit = (data: UpdateChannelData) => {
-    sendChannelData(`channels/${rooter.query.id}/members`, "post", data);
+    sendChannelData({ endpoint:`channels/${rooter.query.id}/members`, method: "post", data: data,isToken:true })
   };
   return (
     <Form
-      name={""}
+      name="editChannelForm"
       onSubmitFunction={handleSubmit(onSubmit)}
-      buttonText={"Save"}
-    >
+      buttonText="Edit Channel"
+     buttonClass="editChannelButton">
       <div>
         <label
           htmlFor="name"

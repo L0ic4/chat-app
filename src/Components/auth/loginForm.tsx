@@ -14,30 +14,31 @@ export const LoginForm = () => {
   } = useForm<LoginDataType>({ resolver: yupResolver(loginSchema) });
 
   const onSubmit = (data: LoginDataType) =>
-    sendAuthData("users/login", "post", data);
+    sendAuthData({ endpoint: "users/login", method: "post", data: data ,isToken:false});
 
   return (
     <Form
-      name={""}
+      name="loginForm"
       onSubmitFunction={handleSubmit(onSubmit)}
-      buttonText={"Login"}
+      buttonText="Login"
+      buttonClass="loginButton"
       isLogin={true}
     >
       <FormInput
-        label={"Your email"}
-        type={"email"}
-        placeholder={"name@company.com"}
+        label="Your email"
+        type="email"
+        placeholder="name@company.com"
         register={register}
-        name={"email"}
+        name="email"
         errors={errors}
       />
 
       <FormInput
-        label={"Your password"}
-        type={"password"}
-        placeholder={"••••••••"}
+        label="Your password"
+        type="password"
+        placeholder="••••••••"
         register={register}
-        name={"password"}
+        name="password"
         errors={errors}
       />
     </Form>

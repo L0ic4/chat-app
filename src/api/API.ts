@@ -1,28 +1,27 @@
-import { GetServerSideProps } from "next";
+import {GetServerSideProps} from "next";
 import axios from "axios";
-import {
-  ChannelData,
-  ChannelListData,
-  MessageData,
-  UserData,
-  UserListData,
-} from "@/utils/types";
 
-export const getMessageChannel: GetServerSideProps = async (context) => {
-  try {
-    const { id } = context.query;
-    const token = context.req.cookies.jetonJWT;
+const getData = async (url: string,context:any) => {
+  
+  const BASE_URL = "http://localhost:8080";
 
-    const ChannelResponse = await axios.get<MessageData>(
-      `http://localhost:8080/messages/channel/${id}`,
+  const token = context.req.cookies.jetonJWT;
+
+  return await axios.get(
+      `${BASE_URL}/${url}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
-    );
+  );
+}
 
-    const messageData = ChannelResponse.data;
+
+export const getMessageChannel: GetServerSideProps = async (context) => {
+  try {
+    const { id } = context.query;
+    const messageData = (await getData(`messages/channel/${id}`, context)).data
 
     return {
       props: {
@@ -43,18 +42,8 @@ export const getMessageChannel: GetServerSideProps = async (context) => {
 export const getMessages: GetServerSideProps = async (context) => {
   try {
     const { id } = context.query;
-    const token = context.req.cookies.jetonJWT;
 
-    const ChannelResponse = await axios.get<MessageData>(
-      `http://localhost:8080/messages/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const messageData = ChannelResponse.data;
+    const messageData = (await getData(`messages/${id}`, context)).data
 
     return {
       props: {
@@ -75,27 +64,10 @@ export const getMessages: GetServerSideProps = async (context) => {
 export const getUsersAndChannel: GetServerSideProps = async (context) => {
   const { id } = context.query;
   try {
-    const token = context.req.cookies.jetonJWT;
+    const usersData = (await getData(`users`, context)).data
 
-    const UsersResponses = await axios.get<UserListData>(
-      "http://localhost:8080/users",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const usersData = UsersResponses.data;
+    const channelData = (await getData(`channel/${id}`, context)).data;
 
-    const ChannelResponse = await axios.get<ChannelData>(
-      `http://localhost:8080/channel/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const channelData = ChannelResponse.data;
     return {
       props: {
         users: usersData,
@@ -115,26 +87,10 @@ export const getUsersAndChannel: GetServerSideProps = async (context) => {
 
 export const getUsersAndChannels: GetServerSideProps = async (context) => {
   try {
-    const token = context.req.cookies.jetonJWT;
-    const usersResponse = await axios.get<UserListData>(
-      "http://localhost:8080/users",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const users = usersResponse.data;
 
-    const channelsResponse = await axios.get<ChannelListData>(
-      "http://localhost:8080/channels",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const channels = channelsResponse.data;
+    const users = (await getData(`users`, context)).data
+
+    const channels = (await getData(`channels`, context)).data
 
     return {
       props: {
@@ -155,13 +111,9 @@ export const getUsersAndChannels: GetServerSideProps = async (context) => {
 
 export const getUserDetails: GetServerSideProps = async (context) => {
   try {
-    const token = context.req.cookies.jetonJWT;
-    const response = await axios.get<UserData>("http://localhost:8080/user", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const user = response.data;
+
+    const user = (await getData(`user`, context)).data
+
     return {
       props: {
         user,
@@ -180,16 +132,7 @@ export const getUserDetails: GetServerSideProps = async (context) => {
 
 export const getAllUsers: GetServerSideProps = async (context) => {
   try {
-    const token = context.req.cookies.jetonJWT;
-    const response = await axios.get<UserListData>(
-      "http://localhost:8080/users",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const users = response.data;
+    const users = (await getData(`users`, context)).data
     return {
       props: {
         users,

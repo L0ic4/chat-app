@@ -14,44 +14,45 @@ export const SignUpForm = () => {
   } = useForm<SigninDataType>({ resolver: yupResolver(signUpSchema) });
 
   const onSubmit: SubmitHandler<SigninDataType> = (data) =>
-    sendAuthData("users", "post", data);
+    sendAuthData({ endpoint: "users", method: "post", data: data,isToken:false });
   return (
     <Form
-      name={""}
+      name="registrationForm"
       onSubmitFunction={handleSubmit(onSubmit)}
-      buttonText={"Sign in"}
+      buttonText="Register"
+      buttonClass="registerButton"
       isSignUp={true}
     >
       <FormInput
-        label={"Your name"}
-        type={"text"}
-        placeholder={"John"}
+        label="Your name"
+        type="text"
+        placeholder="John"
         register={register}
-        name={"name"}
+        name="name"
         errors={errors}
       />
       <FormInput
-        label={"Your email"}
-        type={"email"}
-        placeholder={"name@company.com"}
+        label="Your email"
+        type="email"
+        placeholder="name@company.com"
         register={register}
-        name={"email"}
+        name="email"
         errors={errors}
       />
       <FormInput
-        label={"Password"}
-        type={"password"}
-        placeholder={"••••••••"}
+        label="Password"
+        type="password"
+        placeholder="••••••••"
         register={register}
-        name={"password"}
+        name="password"
         errors={errors}
       />
       <FormInput
-        label={"Confirm Password"}
-        type={"password"}
-        placeholder={"••••••••"}
+        label="Confirm Password"
+        type="password"
+        placeholder="••••••••"
         register={register}
-        name={"confirmPassword"}
+        name="confirmPassword"
         errors={errors}
       />
     </Form>

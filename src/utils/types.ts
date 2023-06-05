@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export interface LoginDataType {
   email: string;
   password: string;
@@ -119,10 +117,10 @@ export interface SendMessagesData {
   content: string;
 }
 
-export type CreateChannelPageProps = {
+export interface CreateChannelPageProps {
   users: UserListData;
   channel: ChannelData;
-};
+}
 
 export interface FormInputProps {
   label: string;
@@ -132,12 +130,11 @@ export interface FormInputProps {
   name: string;
   errors: any;
 }
-export interface AuthFormProps {
-  formName: string;
-  onSubmit: any;
-  submitButtonText: string;
-  bottomText: string;
-  bottomLink: string;
-  bottomLinkText: string;
-  children: ReactNode;
+
+
+export interface SendDataProps {
+  endpoint: string,
+  method: "post" | "put",
+  data: any,
+  isToken: boolean
 }

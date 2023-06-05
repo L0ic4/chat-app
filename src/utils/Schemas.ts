@@ -10,7 +10,7 @@ export const signUpSchema = yup.object().shape({
     .string()
     .email("Adresse e-mail invalide")
     .required("L'adresse e-mail est requise"),
-  password: yup.string().required().min(2).max(120),
+  password: yup.string().required("Mot de passe requis").min(2).max(120),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password")], "Les mots de passe doivent correspondre")
@@ -19,7 +19,7 @@ export const signUpSchema = yup.object().shape({
   bio: yup.string(),
 });
 
-export const channelSchema = yup.object().shape({
+export const createChannelSchema = yup.object().shape({
   name: yup.string().required("Le nom du canal est requis"),
   type: yup
     .string()

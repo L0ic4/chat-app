@@ -1,4 +1,4 @@
-import { channelSchema } from "@/utils/Schemas";
+import { createChannelSchema } from "@/utils/Schemas";
 import { sendChannelData } from "@/utils/SendData";
 import { ChannelDataType, UserListData } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,43 +20,43 @@ export const CreateChannelForm = ({ users }: { users: UserListData }) => {
     control,
     formState: { errors },
   } = useForm<ChannelDataType>({
-    resolver: yupResolver(channelSchema),
+    resolver: yupResolver(createChannelSchema),
   });
   const onSubmit = (data: ChannelDataType) => {
-    sendChannelData("channel", "post", data);
+    sendChannelData({ endpoint: "channel", method: "post", data: data,isToken:true })
   };
+  // @ts-ignore
   return (
     <Form
-      name={""}
+      name="createChannelForm"
       onSubmitFunction={handleSubmit(onSubmit)}
-      buttonText={"Create Channel"}
-    >
+      buttonText="Create Channel"
+     buttonClass="createChannelButton">
       <FormInput
-        label={"Channel Name"}
-        type={"text"}
-        placeholder={"Lo Reconsolidated"}
+        label="Channel Name"
+        type="text"
+        placeholder="Lo Reconsolidated"
         register={register}
-        name={"name"}
+        name="name"//TODO: change with channelName
         errors={errors}
       />
       <div>
         <Label
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          htmlFor="email"
           value="Select an option"
         />
         <select
           {...register("type", { required: true })}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option value="private">private</option>
-          <option value="public">public</option>
+          <option value="public">Public</option>
+          <option value="private">Private</option>
         </select>
       </div>
       <div>
         <Label
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          value=" Channel member"
+          value="Channel member"
         />
         <Controller
           name="members"
