@@ -1,12 +1,12 @@
-import {SendMessageSchema} from "@/utils/Schemas";
-import {MessageData, SendMessagesData} from "@/utils/types";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {useForm} from "react-hook-form";
-import {sendMessage} from "@/utils/SendData";
-import {getMessages} from "@/api/API";
-import {GetServerSideProps} from "next";
+import { SendMessageSchema } from "@/utils/Schemas";
+import { MessageData, SendMessagesData } from "@/utils/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { sendMessage } from "@/utils/SendData";
+import { getMessages } from "@/api/API";
+import { GetServerSideProps } from "next";
 import requireAuth from "@/security/ProtectedRoute";
-import router, {useRouter} from "next/router";
+import router, { useRouter } from "next/router";
 
 const MessageSender = () => {
   const {

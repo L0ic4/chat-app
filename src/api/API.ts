@@ -1,27 +1,22 @@
-import {GetServerSideProps} from "next";
+import { GetServerSideProps } from "next";
 import axios from "axios";
 
-const getData = async (url: string,context:any) => {
-  
+const getData = async (url: string, context: any) => {
   const BASE_URL = "http://localhost:8080";
 
   const token = context.req.cookies.jetonJWT;
 
-  return await axios.get(
-      `${BASE_URL}/${url}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-  );
-}
-
+  return await axios.get(`${BASE_URL}/${url}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
 export const getMessageChannel: GetServerSideProps = async (context) => {
   try {
     const { id } = context.query;
-    const messageData = (await getData(`messages/channel/${id}`, context)).data
+    const messageData = (await getData(`messages/channel/${id}`, context)).data;
 
     return {
       props: {
@@ -43,7 +38,7 @@ export const getMessages: GetServerSideProps = async (context) => {
   try {
     const { id } = context.query;
 
-    const messageData = (await getData(`messages/${id}`, context)).data
+    const messageData = (await getData(`messages/${id}`, context)).data;
 
     return {
       props: {
@@ -64,7 +59,7 @@ export const getMessages: GetServerSideProps = async (context) => {
 export const getUsersAndChannel: GetServerSideProps = async (context) => {
   const { id } = context.query;
   try {
-    const usersData = (await getData(`users`, context)).data
+    const usersData = (await getData(`users`, context)).data;
 
     const channelData = (await getData(`channel/${id}`, context)).data;
 
@@ -87,10 +82,9 @@ export const getUsersAndChannel: GetServerSideProps = async (context) => {
 
 export const getUsersAndChannels: GetServerSideProps = async (context) => {
   try {
+    const users = (await getData(`users`, context)).data;
 
-    const users = (await getData(`users`, context)).data
-
-    const channels = (await getData(`channels`, context)).data
+    const channels = (await getData(`channels`, context)).data;
 
     return {
       props: {
@@ -111,8 +105,7 @@ export const getUsersAndChannels: GetServerSideProps = async (context) => {
 
 export const getUserDetails: GetServerSideProps = async (context) => {
   try {
-
-    const user = (await getData(`user`, context)).data
+    const user = (await getData(`user`, context)).data;
 
     return {
       props: {
@@ -132,7 +125,7 @@ export const getUserDetails: GetServerSideProps = async (context) => {
 
 export const getAllUsers: GetServerSideProps = async (context) => {
   try {
-    const users = (await getData(`users`, context)).data
+    const users = (await getData(`users`, context)).data;
     return {
       props: {
         users,

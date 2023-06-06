@@ -14,7 +14,12 @@ export const SignUpForm = () => {
   } = useForm<SigninDataType>({ resolver: yupResolver(signUpSchema) });
 
   const onSubmit: SubmitHandler<SigninDataType> = (data) =>
-    sendAuthData({ endpoint: "users", method: "post", data: data,isToken:false });
+    sendAuthData({
+      endpoint: "users",
+      method: "post",
+      data: data,
+      isToken: false,
+    });
   return (
     <Form
       name="registrationForm"

@@ -5,11 +5,11 @@ import { getUserDetails } from "@/api/API";
 import { GetServerSideProps } from "next";
 import { UserData } from "@/utils/types";
 
-const Profile = ({ user }: { user: UserData }) => {
+const Index = ({ user }: { user: UserData }) => {
   return (
     <Form title="Your profile" component={<EditProfileForm user={user} />} />
   );
 };
 
-export default requireAuth(Profile);
+export default requireAuth(Index);
 export const getServerSideProps: GetServerSideProps = getUserDetails;

@@ -23,7 +23,12 @@ export const CreateChannelForm = ({ users }: { users: UserListData }) => {
     resolver: yupResolver(createChannelSchema),
   });
   const onSubmit = (data: ChannelDataType) => {
-    sendChannelData({ endpoint: "channel", method: "post", data: data,isToken:true })
+    sendChannelData({
+      endpoint: "channel",
+      method: "post",
+      data: data,
+      isToken: true,
+    });
   };
   // @ts-ignore
   return (
@@ -31,13 +36,14 @@ export const CreateChannelForm = ({ users }: { users: UserListData }) => {
       name="createChannelForm"
       onSubmitFunction={handleSubmit(onSubmit)}
       buttonText="Create Channel"
-     buttonClass="createChannelButton">
+      buttonClass="createChannelButton"
+    >
       <FormInput
         label="Channel Name"
         type="text"
         placeholder="Lo Reconsolidated"
         register={register}
-        name="name"//TODO: change with channelName
+        name="name" //TODO: change with channelName
         errors={errors}
       />
       <div>

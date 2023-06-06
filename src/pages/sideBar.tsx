@@ -1,13 +1,10 @@
 import { Sidebar, Button } from "flowbite-react";
-import Cookies from "js-cookie";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { ChannelListData, UserListData } from "../utils/types";
+import { ChannelListData, UserListData } from "@/utils/types";
 import { GetServerSideProps } from "next";
 import { getUsersAndChannels } from "@/api/API";
 
-const SideBar = ({
+export const SideBar = ({
   users,
   channels,
 }: {
@@ -15,7 +12,7 @@ const SideBar = ({
   channels: ChannelListData;
 }) => {
   return (
-    <Sidebar className="flex-initial">
+    <Sidebar className="h-screen flex-initial">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           <Sidebar.Item href="/profile">
@@ -47,6 +44,3 @@ const SideBar = ({
     </Sidebar>
   );
 };
-
-export const getServerSideProps: GetServerSideProps = getUsersAndChannels;
-export default SideBar;

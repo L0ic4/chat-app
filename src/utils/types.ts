@@ -131,10 +131,9 @@ export interface FormInputProps {
   errors: any;
 }
 
-
 export interface SendDataProps {
-  endpoint: string,
-  method: "post" | "put",
-  data: any,
-  isToken: boolean
+  endpoint: string;
+  method: "post" | "put";
+  data: any;
+  isToken: boolean;
 }

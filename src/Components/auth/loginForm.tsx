@@ -14,7 +14,12 @@ export const LoginForm = () => {
   } = useForm<LoginDataType>({ resolver: yupResolver(loginSchema) });
 
   const onSubmit = (data: LoginDataType) =>
-    sendAuthData({ endpoint: "users/login", method: "post", data: data ,isToken:false});
+    sendAuthData({
+      endpoint: "users/login",
+      method: "post",
+      data: data,
+      isToken: false,
+    });
 
   return (
     <Form

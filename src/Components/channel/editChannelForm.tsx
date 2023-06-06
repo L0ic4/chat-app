@@ -19,14 +19,20 @@ export const EditChannelForm = ({ users, channel }: CreateChannelPageProps) => {
     resolver: yupResolver(updateChannelSchema),
   });
   const onSubmit = (data: UpdateChannelData) => {
-    sendChannelData({ endpoint:`channels/${rooter.query.id}/members`, method: "post", data: data,isToken:true })
+    sendChannelData({
+      endpoint: `channels/${rooter.query.id}/members`,
+      method: "post",
+      data: data,
+      isToken: true,
+    });
   };
   return (
     <Form
       name="editChannelForm"
       onSubmitFunction={handleSubmit(onSubmit)}
       buttonText="Edit Channel"
-     buttonClass="editChannelButton">
+      buttonClass="editChannelButton"
+    >
       <div>
         <label
           htmlFor="name"

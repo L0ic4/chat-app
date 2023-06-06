@@ -24,7 +24,7 @@ export const EditProfileForm = ({ user }: { user: UserData }) => {
       <Form
         name="editProfileForm"
         onSubmitFunction={handleSubmit(onSubmit)}
-        buttonText="Update Profile"
+        buttonText="Update Index"
        buttonClass="updateProfileButton">
         <FormInput
           label="Your Name"
@@ -71,7 +71,7 @@ export const EditProfileForm = ({ user }: { user: UserData }) => {
           type="password"
           placeholder="••••••••"
           register={register}
-          name=password//TODO: change to newPassword
+          name="password"//TODO: change to newPassword
           errors={errors}
         />
         <FormInput
