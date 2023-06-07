@@ -1,5 +1,5 @@
 import { updateUserSchema } from "@/utils/Schemas";
-import { updateProfile} from "@/utils/SendData";
+import { updateProfile } from "@/utils/SendData";
 import { UserData, UpdateUserData } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Label, TextInput, Textarea } from "flowbite-react";
@@ -17,7 +17,12 @@ export const EditProfileForm = ({ user }: { user: UserData }) => {
   } = useForm<UpdateUserData>({ resolver: yupResolver(updateUserSchema) });
   const onSubmit = (data: UpdateUserData) => {
     reset();
-    updateProfile({ endpoint: "user", method: "put", data: data,isToken:true });//TODO; Mila token
+    updateProfile({
+      endpoint: "user",
+      method: "put",
+      data: data,
+      isToken: true,
+    }); //TODO; Mila token
   };
   return (
     <>
@@ -25,7 +30,8 @@ export const EditProfileForm = ({ user }: { user: UserData }) => {
         name="editProfileForm"
         onSubmitFunction={handleSubmit(onSubmit)}
         buttonText="Update Index"
-       buttonClass="updateProfileButton">
+        buttonClass="updateProfileButton"
+      >
         <FormInput
           label="Your Name"
           type="text"
@@ -41,7 +47,12 @@ export const EditProfileForm = ({ user }: { user: UserData }) => {
           >
             Your email
           </Label>
-          <TextInput value={user.user?.email} disabled type="email" name="email" />
+          <TextInput
+            value={user.user?.email}
+            disabled
+            type="email"
+            name="email"
+          />
         </div>
         <div>
           <Label
@@ -63,7 +74,7 @@ export const EditProfileForm = ({ user }: { user: UserData }) => {
           type="password"
           placeholder="••••••••"
           register={register}
-          name="oldPassword"//TODO: change to currentPassword
+          name="oldPassword" //TODO: change to currentPassword
           errors={errors}
         />
         <FormInput
@@ -71,7 +82,7 @@ export const EditProfileForm = ({ user }: { user: UserData }) => {
           type="password"
           placeholder="••••••••"
           register={register}
-          name="password"//TODO: change to newPassword
+          name="password" //TODO: change to newPassword
           errors={errors}
         />
         <FormInput

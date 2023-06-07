@@ -34,28 +34,6 @@ export const getMessageChannel: GetServerSideProps = async (context) => {
   }
 };
 
-export const getMessages: GetServerSideProps = async (context) => {
-  try {
-    const { id } = context.query;
-
-    const messageData = (await getData(`messages/${id}`, context)).data;
-
-    return {
-      props: {
-        messageData,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-};
-
 export const getUsersAndChannel: GetServerSideProps = async (context) => {
   const { id } = context.query;
   try {

@@ -8,7 +8,7 @@ const TOKEN = Cookies.get("jetonJWT");
 
 export const apiRequest = async <T>(
   endpoint: string,
-  method: "post" | "put",
+  method: "post" | "put" | "get",
   requireToken: boolean,
   data?: any
 ): Promise<AxiosResponse<T>> => {

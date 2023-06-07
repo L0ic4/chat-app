@@ -6,8 +6,6 @@ import { UserListData } from "@/utils/types";
 import { GetServerSideProps } from "next";
 
 const Create = ({ users }: { users: UserListData }) => {
-  console.log(users);
-
   return (
     <Form
       title="Create Channel"

@@ -9,9 +9,9 @@ export default function Home() {
     const TOKEN = Cookies.get("jetonJWT");
 
     if (TOKEN) {
-      router.push("/profile").then((r) => console.log("success"));
+      router.push("/profile");
     } else {
-      router.push("/login").then((r) => console.log("success"));
+      router.push("/login");
     }
   }, [router]);
 

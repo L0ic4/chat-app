@@ -27,6 +27,7 @@ export const createChannelSchema = yup.object().shape({
     .required("Le type du canal est requis"),
   members: yup
     .array()
+    .default([])
     .of(yup.string())
     .required("Les membres du canal sont requis"),
 });

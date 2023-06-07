@@ -59,16 +59,16 @@ export interface ChannelListData {
   status: boolean;
   channels: [
     {
-      id?: number;
-      name?: string;
-      type?: string;
-      createdAt?: string;
-      updatedAt?: string;
-      ownerId?: number;
-      owner?: {
-        id?: number;
-        name?: string;
-        email?: string;
+      id: number;
+      name: string;
+      type: string;
+      createdAt: string;
+      updatedAt: string;
+      ownerId: number;
+      owner: {
+        id: number;
+        name: string;
+        email: string;
       };
     }
   ];
@@ -93,21 +93,21 @@ export interface UpdateChannelData {
 }
 
 export interface MessageData {
-  status?: boolean;
-  messages?: [
+  status: boolean;
+  messages: [
     {
-      id?: number;
-      content?: string;
-      createdAt?: string;
-      updatedAt?: string;
-      deletedAt?: string;
-      senderId?: number;
-      recipientId?: number;
-      channelId?: number;
-      sender?: {
-        id?: number;
+      id: number;
+      content: string;
+      createdAt: string;
+      updatedAt: string;
+      deletedAt: string;
+      senderId: number;
+      recipientId: number;
+      channelId: number;
+      sender: {
+        id: number;
         name: string;
-        email?: string;
+        email: string;
       };
     }
   ];

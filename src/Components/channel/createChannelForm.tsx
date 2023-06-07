@@ -15,6 +15,7 @@ export const CreateChannelForm = ({ users }: { users: UserListData }) => {
     label: user.name,
   }));
   const {
+    watch,
     register,
     handleSubmit,
     control,
@@ -30,7 +31,6 @@ export const CreateChannelForm = ({ users }: { users: UserListData }) => {
       isToken: true,
     });
   };
-  // @ts-ignore
   return (
     <Form
       name="createChannelForm"
@@ -59,26 +59,29 @@ export const CreateChannelForm = ({ users }: { users: UserListData }) => {
           <option value="private">Private</option>
         </select>
       </div>
-      <div>
-        <Label
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          value="Channel member"
-        />
-        <Controller
-          name="members"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <Select
-              // value={options.filter((c) => value?.includes(c.value))}
-              value={options.find((c) => c.value === value)}
-              onChange={(val) => onChange(val.map((c) => c.value))}
-              options={options}
-              isMulti
-            />
-          )}
-          rules={{ required: true }}
-        />
-      </div>
+
+      {watch("type") === "private" && (
+        <div>
+          <Label
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            value="Channel member"
+          />
+          <Controller
+            name="members"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Select
+                // value={options.filter((c) => value?.includes(c.value))}
+                value={options.find((c) => c.value === value)}
+                onChange={(val) => onChange(val.map((c) => c.value))}
+                options={options}
+                isMulti
+              />
+            )}
+            rules={{ required: true }}
+          />
+        </div>
+      )}
     </Form>
   );
 };

@@ -37,7 +37,7 @@ export const Form = ({
             Don’t have an account yet?{" "}
             <Link
               className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-              href="/sign-up/index"
+              href="/sign-up"
             >
               Sign In
             </Link>

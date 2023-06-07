@@ -1,8 +1,6 @@
 import { Sidebar, Button } from "flowbite-react";
 import Link from "next/link";
 import { ChannelListData, UserListData } from "@/utils/types";
-import { GetServerSideProps } from "next";
-import { getUsersAndChannels } from "@/api/API";
 
 export const SideBar = ({
   users,

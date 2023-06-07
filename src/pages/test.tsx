@@ -1,100 +1,85 @@
-import React, { useState } from "react";
+import { SendMessageSchema } from "@/utils/Schemas";
+import { MessageData, SendMessagesData } from "@/utils/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { sendMessage } from "@/utils/SendData";
+import { getMessageChannel } from "@/api/API";
+import { GetServerSideProps } from "next";
+import requireAuth from "@/security/ProtectedRoute";
+import router, { useRouter } from "next/router";
 
-type ChatMessage = {
-    id: number;
-    sender: string;
-    message: string;
-}
+const MessageSender = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SendMessagesData>({ resolver: yupResolver(SendMessageSchema) });
 
-type ChatProps = {
-    messages: ChatMessage[];
-}
+  const CreateMessage = (data: SendMessagesData) => {
+    const { id } = router.query;
+    return {
+      content: data.content,
+      channelId: id,
+    };
+  };
 
-const Chat: React.FC<ChatProps> = ({ messages }) => {
-    const [newMessage, setNewMessage] = useState("");
+  const onSubmit = async (data: SendMessagesData): Promise<void> => {
+    sendMessage({
+      endpoint: "message",
+      method: "post",
+      data: CreateMessage(data),
+      isToken: true,
+    });
+  };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // Add new message to messages array
-    }
+  return (
+    <form name="sendMessageForm" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex items-center p-2">
+        <input
+          {...register("content", {
+            required: true,
+          })}
+          type="text"
+          placeholder="Type your message"
+          className="flex-grow outline-none rounded-full px-4 py-2 bg-gray-100"
+        />
+        <button
+          type="submit"
+          className="ml-2 rounded-full px-4 py-2 bg-blue-500 text-white"
+        >
+          Send
+        </button>
+        {errors.content && (
+          <p className="text-sm text-red-500 p-2">{errors.content.message}</p>
+        )}
+      </div>
+    </form>
+  );
+};
 
-    return (
-        <div className="bg-gray-100 w-full h-screen flex flex-col">
-            <div className="overflow-y-auto flex-grow">
-                {messages.map((message) => (
-                    <div key={message.id} className="flex flex-col items-start mt-2 px-4">
-                        <div className="bg-indigo-500 text-white px-2 py-1 rounded-md">
-                            <p className="font-bold">{message.sender}</p>
-                            <p>{message.message}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <form onSubmit={handleSubmit} className="mt-2 px-4 flex gap-2">
-                <input
-                    type="text"
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="Type your message"
-                    className="border border-gray-300 rounded-md px-2 py-1 w-full"
-                />
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2">
-                    Send
-                </button>
-            </form>
-        </div>
-    );
-}
+const UserMessage = ({ messageData }: { messageData: MessageData }) => {
+  const router = useRouter();
+  const id = router.query.id;
+  const messages = messageData.messages?.slice().reverse();
+  return (
+    <div className="bg-gray-100 w-full h-screen flex flex-col">
+      <div className="flex-grow p-4 overflow-y-auto">
+        {messages?.map((message) => (
+          <div
+            key={message.id}
+            className={
+              (message.senderId == id ? "text-right bg-blue-200" : "") +
+              " p-4 my-2 rounded-lg shadow-lg"
+            }
+          >
+            {message.content}
+          </div>
+        ))}
+      </div>
+      <MessageSender />
+    </div>
+  );
+};
 
-export default function App() {
-    const initialMessages = [
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-        { id: 1, sender: "Jane", message: "Hello!" },
-        { id: 2, sender: "John", message: "Hi there!" },
-        { id: 3, sender: "Jane", message: "How are you doing?" },
-        { id: 4, sender: "John", message: "I'm doing great, thanks for asking!" },
-    ];
-
-    return (
-                <Chat messages={initialMessages} />
-    );
-}
+export const getServerSideProps: GetServerSideProps = getMessageChannel;
+export default requireAuth(UserMessage);
