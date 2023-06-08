@@ -1,6 +1,6 @@
 import { signUpSchema } from "@/utils/Schemas";
 import { sendAuthData } from "@/utils/SendData";
-import { SigninDataType } from "@/utils/types";
+import { SignupDataType } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FormInput } from "../form/input";
@@ -11,9 +11,9 @@ export const SignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SigninDataType>({ resolver: yupResolver(signUpSchema) });
+  } = useForm<SignupDataType>({ resolver: yupResolver(signUpSchema) });
 
-  const onSubmit: SubmitHandler<SigninDataType> = (data) =>
+  const onSubmit: SubmitHandler<SignupDataType> = (data: SignupDataType) =>
     sendAuthData({
       endpoint: "users",
       method: "post",

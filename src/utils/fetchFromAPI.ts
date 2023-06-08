@@ -11,18 +11,18 @@ export const apiRequest = async <T>(
   method: "post" | "put" | "get",
   requireToken: boolean,
   data?: any
-): Promise<AxiosResponse<T>> => {
+): Promise<Promise<AxiosResponse<any>> | any> => {
   const headers: AxiosHeaders = {
     "Content-Type": "application/json",
     Accept: "application/json",
   };
 
   if (requireToken) {
-    if (!TOKEN) throw new Error("Jetton JWT non disponible");
+    if (!TOKEN) throw new Error("JWT invalid");
     headers["Authorization"] = `Bearer ${TOKEN}`;
   }
 
   const url = `${BASE_URL}/${endpoint}`;
 
-  return await axios({ url, method, headers, data });
+  return axios({ url, method, headers, data });
 };

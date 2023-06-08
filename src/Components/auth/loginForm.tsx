@@ -2,7 +2,7 @@ import { loginSchema } from "@/utils/Schemas";
 import { sendAuthData } from "@/utils/SendData";
 import { LoginDataType } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { FormInput } from "../form/input";
 import { Form } from "../form/form";
 
@@ -13,7 +13,7 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginDataType>({ resolver: yupResolver(loginSchema) });
 
-  const onSubmit = (data: LoginDataType) =>
+  const onSubmit: SubmitHandler<LoginDataType> = (data: LoginDataType) =>
     sendAuthData({
       endpoint: "users/login",
       method: "post",

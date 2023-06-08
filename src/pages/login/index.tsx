@@ -1,5 +1,5 @@
 import { LoginForm } from "@/Components/auth/loginForm";
-import { Form } from "@/Components/form/formLayout";
+import { FormLayout } from "@/Components/form/formLayout";
 import Head from "next/head";
 
 const Index = () => {
@@ -12,7 +12,7 @@ const Index = () => {
           content="Please login to use fully-featured chat App site."
         />
       </Head>
-      <Form title="Login To Your Account" component={<LoginForm />} />
+      <FormLayout title="Login To Your Account" component={<LoginForm />} />
     </>
   );
 };

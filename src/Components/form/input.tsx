@@ -13,7 +13,7 @@ export const FormInput: FC<FormInputProps> = ({
   <div>
     <label htmlFor={name}>{label}</label>
     <TextInput
-      {...register(name, { required: true })}
+      {...register(name)}
       type={type}
       name={name}
       id={name}

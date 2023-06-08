@@ -58,29 +58,6 @@ export const getUsersAndChannel: GetServerSideProps = async (context) => {
   }
 };
 
-export const getUsersAndChannels: GetServerSideProps = async (context) => {
-  try {
-    const users = (await getData(`users`, context)).data;
-
-    const channels = (await getData(`channels`, context)).data;
-
-    return {
-      props: {
-        users,
-        channels,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-};
-
 export const getUserDetails: GetServerSideProps = async (context) => {
   try {
     const user = (await getData(`user`, context)).data;

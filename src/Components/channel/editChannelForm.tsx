@@ -1,31 +1,32 @@
 import { updateChannelSchema } from "@/utils/Schemas";
 import { sendChannelData } from "@/utils/SendData";
-import { CreateChannelPageProps, UpdateChannelData } from "@/utils/types";
+import { CreateChannelPageProps, UpdateChannelDataType } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "react-select";
 import { useRouter } from "next/router";
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Form } from "../form/form";
 
 export const EditChannelForm = ({ users, channel }: CreateChannelPageProps) => {
   const rooter = useRouter();
-  const options = users.users.map((user) => ({
-    value: user.id,
-    label: user.name,
+  const options = users.users.map(({ id, name }) => ({
+    value: id,
+    label: name,
   }));
 
-  const { handleSubmit, control } = useForm<UpdateChannelData>({
+  const { handleSubmit, control } = useForm<UpdateChannelDataType>({
     resolver: yupResolver(updateChannelSchema),
   });
-  const onSubmit = (data: UpdateChannelData) => {
+  const onSubmit: SubmitHandler<UpdateChannelDataType> = (
+    data: UpdateChannelDataType
+  ) =>
     sendChannelData({
       endpoint: `channels/${rooter.query.id}/members`,
       method: "post",
       data: data,
       isToken: true,
     });
-  };
   return (
     <Form
       name="editChannelForm"

@@ -1,45 +1,16 @@
-export interface LoginDataType {
-  email: string;
-  password: string;
-}
-
-export interface SigninDataType {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  name: string;
-  bio: string;
-}
-
 export interface UserData {
-  status?: boolean;
-  user?: {
-    id?: number;
-    email?: string;
-    name?: string;
-    googleId?: string;
-    bio?: string;
-    status?: number;
-    createdAt?: string;
-    updatedAt?: string;
-    deletedAt?: string;
-    token?: string;
-  };
-}
-export interface ChannelData {
-  status?: boolean;
-  channel?: {
-    id?: number;
-    name?: string;
-    type?: string;
-    createdAt?: string;
-    updatedAt?: string;
-    ownerId?: number;
-    owner?: {
-      id?: number;
-      name?: string;
-      email?: string;
-    };
+  status: boolean;
+  user: {
+    id: number;
+    email: string;
+    name: string;
+    googleId: string;
+    bio: string;
+    status: number;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string;
+    token: string;
   };
 }
 
@@ -53,6 +24,22 @@ export interface UserListData {
       bio: string;
     }
   ];
+}
+export interface ChannelData {
+  status: boolean;
+  channel: {
+    id: number;
+    name: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    ownerId: number;
+    owner: {
+      id: number;
+      name: string;
+      email: string;
+    };
+  };
 }
 
 export interface ChannelListData {
@@ -74,25 +61,7 @@ export interface ChannelListData {
   ];
 }
 
-export interface ChannelDataType {
-  name?: string;
-  type?: "public" | "private";
-  members?: [];
-}
-
-export interface UpdateUserData {
-  name?: string;
-  oldPassword?: string;
-  password?: string;
-  confirmPassword?: string;
-  bio?: string;
-}
-
-export interface UpdateChannelData {
-  members: [];
-}
-
-export interface MessageData {
+export interface MessageListData {
   status: boolean;
   messages: [
     {
@@ -113,7 +82,37 @@ export interface MessageData {
   ];
 }
 
-export interface SendMessagesData {
+export interface LoginDataType {
+  email: string;
+  password: string;
+}
+
+export interface SignupDataType {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  name: string;
+  bio: string;
+}
+export interface CreateChannelDataType {
+  name?: string;
+  type?: "public" | "private";
+  members?: [];
+}
+
+export interface UpdateChannelDataType {
+  members: [];
+}
+
+export interface UpdateUserDataType {
+  name?: string;
+  oldPassword?: string;
+  password?: string;
+  confirmPassword?: string;
+  bio?: string;
+}
+
+export interface SendMessageDataType {
   content: string;
 }
 

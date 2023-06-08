@@ -1,6 +1,6 @@
 import { updateUserSchema } from "@/utils/Schemas";
 import { updateProfile } from "@/utils/SendData";
-import { UserData, UpdateUserData } from "@/utils/types";
+import { UserData, UpdateUserDataType } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Label, TextInput, Textarea } from "flowbite-react";
 import React from "react";
@@ -14,15 +14,15 @@ export const EditProfileForm = ({ user }: { user: UserData }) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<UpdateUserData>({ resolver: yupResolver(updateUserSchema) });
-  const onSubmit = (data: UpdateUserData) => {
+  } = useForm<UpdateUserDataType>({ resolver: yupResolver(updateUserSchema) });
+  const onSubmit = (data: UpdateUserDataType) => {
     reset();
     updateProfile({
       endpoint: "user",
       method: "put",
       data: data,
       isToken: true,
-    }); //TODO; Mila token
+    });
   };
   return (
     <>
@@ -35,7 +35,7 @@ export const EditProfileForm = ({ user }: { user: UserData }) => {
         <FormInput
           label="Your Name"
           type="text"
-          placeholder={user.user?.name}
+          placeholder={user.user.name}
           register={register}
           name="name"
           errors={errors}

@@ -1,20 +1,26 @@
 import { SendMessageSchema } from "@/utils/Schemas";
-import { MessageData, SendMessagesData } from "@/utils/types";
+import { MessageListData, SendMessageDataType } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { sendMessage } from "@/utils/SendData";
-import { GetServerSideProps } from "next";
 import requireAuth from "@/security/ProtectedRoute";
 import router, { useRouter } from "next/router";
+import useSWR from "swr";
+import { MessageUserFetcher } from "@/utils/FetchData";
 
 const MessageSender = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SendMessagesData>({ resolver: yupResolver(SendMessageSchema) });
+  } = useForm<SendMessageDataType>({
+    resolver: yupResolver(SendMessageSchema),
+  });
 
-  const CreateMessage = (data: SendMessagesData, channelId: number | null) => {
+  const CreateMessage = (
+    data: SendMessageDataType,
+    channelId: number | null
+  ) => {
     const { id } = router.query;
     return {
       content: data.content,
@@ -23,7 +29,7 @@ const MessageSender = () => {
     };
   };
 
-  const onSubmit = async (data: SendMessagesData) => {
+  const onSubmit = async (data: SendMessageDataType) => {
     sendMessage({
       endpoint: "message",
       method: "post",
@@ -57,10 +63,18 @@ const MessageSender = () => {
   );
 };
 
-const UserMessage = ({ messageData }: { messageData: MessageData }) => {
+const UserMessage = () => {
+  const userMessage = useSWR<MessageListData, Error>(
+    "messageData",
+    MessageUserFetcher,
+    {
+      refreshInterval: 1000,
+    }
+  ).data;
+
   const router = useRouter();
   const id = router.query.id;
-  const messages = messageData.messages?.slice().reverse();
+  const messages = userMessage?.messages?.slice().reverse();
   return (
     <div className="bg-gray-100 w-full h-screen flex flex-col">
       <div className="flex-grow p-4 overflow-y-auto">
@@ -81,5 +95,4 @@ const UserMessage = ({ messageData }: { messageData: MessageData }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = getMessages;
 export default requireAuth(UserMessage);

@@ -1,13 +1,12 @@
 import { SendMessageSchema } from "@/utils/Schemas";
-import { MessageData, SendMessagesData } from "@/utils/types";
+import { MessageListData, SendMessageDataType } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { sendMessage } from "@/utils/SendData";
 import requireAuth from "@/security/ProtectedRoute";
 import router, { useRouter } from "next/router";
 import useSWR from "swr";
-import axios from "axios";
-import Cookies from "js-cookie";
+import { MessageFetcher } from "@/utils/FetchData";
 
 const MessageSender = () => {
   const {
@@ -15,9 +14,11 @@ const MessageSender = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<SendMessagesData>({ resolver: yupResolver(SendMessageSchema) });
+  } = useForm<SendMessageDataType>({
+    resolver: yupResolver(SendMessageSchema),
+  });
 
-  const CreateMessage = (data: SendMessagesData) => {
+  const CreateMessage = (data: SendMessageDataType) => {
     const { id } = router.query;
     return {
       content: data.content,
@@ -25,7 +26,7 @@ const MessageSender = () => {
     };
   };
 
-  const onSubmit = async (data: SendMessagesData): Promise<void> => {
+  const onSubmit = async (data: SendMessageDataType): Promise<void> => {
     reset();
     sendMessage({
       endpoint: "message",
@@ -60,21 +61,14 @@ const MessageSender = () => {
   );
 };
 
-const fetcher = async () => {
-  const TOKEN = Cookies.get("jetonJWT");
-  const response = await axios.get("http://localhost:8080/messages/channel/1", {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-    },
-  });
-  const message = await response.data;
-  return message;
-};
-
 const UserMessage = () => {
-  const { data } = useSWR<MessageData, Error>("messageData", fetcher, {
-    refreshInterval: 1000,
-  });
+  const { data } = useSWR<MessageListData, Error>(
+    "messageData",
+    MessageFetcher,
+    {
+      refreshInterval: 1000,
+    }
+  );
 
   const router = useRouter();
   const id = router.query.id;

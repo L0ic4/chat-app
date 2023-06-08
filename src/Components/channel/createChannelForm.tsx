@@ -1,36 +1,39 @@
 import { createChannelSchema } from "@/utils/Schemas";
 import { sendChannelData } from "@/utils/SendData";
-import { ChannelDataType, UserListData } from "@/utils/types";
+import { CreateChannelDataType, UserListData } from "@/utils/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "react-select";
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Label } from "flowbite-react";
 import { FormInput } from "../form/input";
 import { Form } from "../form/form";
 
 export const CreateChannelForm = ({ users }: { users: UserListData }) => {
-  const options = users.users.map((user) => ({
-    value: user.id,
-    label: user.name,
+  const options = users.users.map(({ id, name }) => ({
+    value: id,
+    label: name,
   }));
+
   const {
     watch,
     register,
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<ChannelDataType>({
+  } = useForm<CreateChannelDataType>({
     resolver: yupResolver(createChannelSchema),
   });
-  const onSubmit = (data: ChannelDataType) => {
+
+  const onSubmit: SubmitHandler<CreateChannelDataType> = (
+    data: CreateChannelDataType
+  ) =>
     sendChannelData({
       endpoint: "channel",
       method: "post",
       data: data,
       isToken: true,
     });
-  };
   return (
     <Form
       name="createChannelForm"
@@ -41,7 +44,7 @@ export const CreateChannelForm = ({ users }: { users: UserListData }) => {
       <FormInput
         label="Channel Name"
         type="text"
-        placeholder="Lo Reconsolidated"
+        placeholder="Lo Consolidated"
         register={register}
         name="name" //TODO: change with channelName
         errors={errors}
@@ -59,7 +62,6 @@ export const CreateChannelForm = ({ users }: { users: UserListData }) => {
           <option value="private">Private</option>
         </select>
       </div>
-
       {watch("type") === "private" && (
         <div>
           <Label

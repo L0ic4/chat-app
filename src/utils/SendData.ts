@@ -1,5 +1,5 @@
 import { apiRequest } from "@/utils/fetchFromAPI";
-import { MessageData, SendDataProps, UserData } from "@/utils/types";
+import { MessageListData, SendDataProps, UserData } from "@/utils/types";
 import Cookies from "js-cookie";
 import router from "next/router";
 
@@ -10,7 +10,7 @@ export const sendAuthData = async ({
   isToken,
 }: SendDataProps): Promise<void> => {
   const response = await apiRequest<UserData>(endpoint, method, isToken, data);
-  const token = response.data.user!.token;
+  const token = response.data.user.token;
   if (response.status === 201) {
     await router.push("/login");
   } else if (response.status === 200) {
@@ -49,5 +49,5 @@ export const sendMessage = async ({
   data,
   isToken,
 }: SendDataProps): Promise<void> => {
-  await apiRequest<MessageData>(endpoint, method, isToken, data);
+  await apiRequest<MessageListData>(endpoint, method, isToken, data);
 };

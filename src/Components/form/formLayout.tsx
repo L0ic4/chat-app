@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-export const Form = ({
+export const FormLayout = ({
   title,
   component,
 }: {
