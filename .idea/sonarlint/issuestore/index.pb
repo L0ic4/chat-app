@@ -9,15 +9,31 @@ A
 postcss.config.js,3\f\3f70684581fd16ab3be77ca959e0138ef3ee8bfb
 B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
-9
-	yarn.lock,5\3\53585a096fe3a3b96321113856ae62602995a33b
->
-next.config.js,8\1\811a6d5a2e04fadb44d8eec365f2fa8af5c4facf
 =
 tsconfig.json,6\1\61ebb9fd6e8cf9082658121d5d81e297791dacd0
-C
-src/pages/index.tsx,d\2\d2d3bb60cab7e8c869b5fdf0a820b7edf2fc7859
 G
 src/pages/_document.tsx,0\5\052f85edfc3fbb9d129530f0f8b191ff6c16f7ce
+O
+src/pages/channel/edit/[id].tsx,2\9\295c883c91e2b1a90a29ec1217b691288299bf46
 L
-src/Components/form/form.tsx,b\2\b2fa056798c6334afcb93e484e4b1467e3cae8a8
+src/pages/channel/create.tsx,0\d\0d0be69fb843797282bffdee6069ac15d75983e6
+\
+,src/Components/channel/createChannelForm.tsx,3\6\365a4836750eb20cb9bddd023994ec0e62a7beed
+Z
+*src/Components/channel/editChannelForm.tsx,8\2\8268b00c7373a6b42aa77ced6dfb72df020545ff
+Z
+*src/Components/profile/editProfileForm.tsx,a\c\ac86f8e5efbd5c352ed5a251c05a14879ebe50f8
+I
+src/utils/fetchFromAPI.ts,6\6\6684853ebf58091b5f679059754aa9cdef995a90
+R
+"src/Components/form/formLayout.tsx,a\8\a8ca69c985e142d8c0e8ffc30e35bf080e03911b
+I
+src/pages/login/index.tsx,2\3\23cb3d17235f5a88bf251f9039272978953d1151
+K
+src/pages/profile/index.tsx,1\4\14abd6a77d05358c4a25c9adfd6eb4ab75425e41
+K
+src/pages/sign-up/index.tsx,e\6\e6e98ac31ea8189b76808d655435307adf764abf
+Q
+!src/Components/auth/loginForm.tsx,e\7\e79e3e7ed865c75daa06cf8e6ffe246661e7b1a1
+D
+src/utils/Schemas.ts,f\e\fe089294ba5507ba51dfa01e3d768408162c2305

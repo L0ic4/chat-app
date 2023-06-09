@@ -11,9 +11,13 @@ export const sendAuthData = async ({
 }: SendDataProps): Promise<void> => {
   const response = await apiRequest<UserData>(endpoint, method, isToken, data);
   const token = response.data.user.token;
+
   if (response.status === 201) {
     await router.push("/login");
-  } else if (response.status === 200) {
+    return;
+  }
+
+  if (response.status === 200) {
     Cookies.set("jetonJWT", token);
     await router.push("/profile");
   }
@@ -26,6 +30,7 @@ export const updateProfile = async ({
   isToken,
 }: SendDataProps): Promise<void> => {
   const response = await apiRequest<UserData>(endpoint, method, isToken, data);
+
   if (response.status === 200) {
     await router.push("/profile");
   }
@@ -38,6 +43,7 @@ export const sendChannelData = async ({
   isToken,
 }: SendDataProps): Promise<void> => {
   const response = await apiRequest<UserData>(endpoint, method, isToken, data);
+
   if (response.status === 201) {
     await router.push("/profile");
   }

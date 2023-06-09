@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface UserData {
   status: boolean;
   user: {
@@ -128,6 +130,15 @@ export interface FormInputProps {
   register: any;
   name: string;
   errors: any;
+}
+export interface FormProps {
+  name: string;
+  onSubmitFunction: any;
+  buttonText: string;
+  buttonClass: string;
+  isLogin?: boolean;
+  isSignUp?: boolean;
+  children: ReactNode;
 }
 
 export interface SendDataProps {

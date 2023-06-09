@@ -2,16 +2,21 @@ import { SideBar } from "@/Components/Sidebar";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
+import NextNProgress from "nextjs-progressbar";
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const router = useRouter();
-  const isLoginOrSignUp =
-    router.pathname === "/login" || router.pathname === "/sign-up";
+  const { pathname } = useRouter();
+  const isLoginOrSignUp = pathname === "/login" || pathname === "/sign-up";
+
   return (
-    <div className="flex">
-      {!isLoginOrSignUp && <SideBar />}
-      <Component {...pageProps} />
-    </div>
+    <>
+      <NextNProgress />
+      <div className="flex">
+        {!isLoginOrSignUp && <SideBar />}
+        <Component {...pageProps} />
+      </div>
+    </>
   );
 };
+
 export default App;

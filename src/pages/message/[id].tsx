@@ -64,16 +64,16 @@ const MessageSender = () => {
 };
 
 const UserMessage = () => {
+  const router = useRouter();
+  const id = router.query.id;
   const userMessage = useSWR<MessageListData, Error>(
-    "messageData",
+    `${id}`,
     MessageUserFetcher,
     {
       refreshInterval: 1000,
     }
   ).data;
 
-  const router = useRouter();
-  const id = router.query.id;
   const messages = userMessage?.messages?.slice().reverse();
   return (
     <div className="bg-gray-100 w-full h-screen flex flex-col">

@@ -1,16 +1,6 @@
 import { Button } from "flowbite-react";
 import Link from "next/link";
-import { ReactNode } from "react";
-
-interface FormProps {
-  name: string;
-  onSubmitFunction: any;
-  buttonText: string;
-  buttonClass: string;
-  isLogin?: boolean;
-  isSignUp?: boolean;
-  children: ReactNode;
-}
+import { FormProps } from "@/utils/types";
 
 export const Form = ({
   name,
@@ -28,9 +18,11 @@ export const Form = ({
       className="flex max-w-md flex-col gap-4"
     >
       {children}
-      <Button type="submit" className={buttonClass}>
-        {buttonText}
-      </Button>
+      <div>
+        <Button type="submit" className={buttonClass}>
+          {buttonText}
+        </Button>
+      </div>
       {isLogin && (
         <div>
           <p className="text-sm font-light text-gray-500 dark:text-gray-400">

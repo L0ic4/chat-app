@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 
-const requireAuth = (WrappedComponent: any) => {
+const requireAuth = (WrappedComponent: NextPage) => {
   const TOKEN = Cookies.get("jetonJWT");
   const WithAuth: NextPage = (props) => {
     const router = useRouter();

@@ -62,16 +62,12 @@ const MessageSender = () => {
 };
 
 const UserMessage = () => {
-  const { data } = useSWR<MessageListData, Error>(
-    "messageData",
-    MessageFetcher,
-    {
-      refreshInterval: 1000,
-    }
-  );
-
   const router = useRouter();
-  const id = router.query.id;
+  const { id } = router.query;
+  const { data } = useSWR<MessageListData, Error>(`${id}`, MessageFetcher, {
+    refreshInterval: 1000,
+  });
+
   const messages = data?.messages?.slice().reverse();
   return (
     <div className="bg-gray-100 w-full h-screen flex flex-col">

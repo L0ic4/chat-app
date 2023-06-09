@@ -13,13 +13,15 @@ export const SignUpForm = () => {
     formState: { errors },
   } = useForm<SignupDataType>({ resolver: yupResolver(signUpSchema) });
 
-  const onSubmit: SubmitHandler<SignupDataType> = (data: SignupDataType) =>
+  const onSubmit: SubmitHandler<SignupDataType> = (data: SignupDataType) => {
+    console.log("mety");
     sendAuthData({
       endpoint: "users",
       method: "post",
       data: data,
       isToken: false,
     });
+  };
   return (
     <Form
       name="registrationForm"

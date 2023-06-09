@@ -1,22 +1,23 @@
 import { GetServerSideProps } from "next";
 import axios from "axios";
 
-const getData = async (url: string, context: any) => {
-  const BASE_URL = "http://localhost:8080";
+const BASE_URL = "http://localhost:8080";
 
-  const token = context.req.cookies.jetonJWT;
+const getSSRData = async (url: string, token: string) => {
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
-  return await axios.get(`${BASE_URL}/${url}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await axios.get(`${BASE_URL}/${url}`, { headers });
+  return response.data;
 };
 
 export const getMessageChannel: GetServerSideProps = async (context) => {
   try {
     const { id } = context.query;
-    const messageData = (await getData(`messages/channel/${id}`, context)).data;
+    const token = context.req.cookies.jetonJWT;
+
+    const messageData = await getSSRData(`messages/channel/${id}`, token);
 
     return {
       props: {
@@ -35,11 +36,12 @@ export const getMessageChannel: GetServerSideProps = async (context) => {
 };
 
 export const getUsersAndChannel: GetServerSideProps = async (context) => {
-  const { id } = context.query;
   try {
-    const usersData = (await getData(`users`, context)).data;
+    const { id } = context.query;
+    const token = context.req.cookies.jetonJWT;
 
-    const channelData = (await getData(`channel/${id}`, context)).data;
+    const usersData = await getSSRData("users", token);
+    const channelData = await getSSRData(`channel/${id}`, token);
 
     return {
       props: {
@@ -60,7 +62,8 @@ export const getUsersAndChannel: GetServerSideProps = async (context) => {
 
 export const getUserDetails: GetServerSideProps = async (context) => {
   try {
-    const user = (await getData(`user`, context)).data;
+    const token = context.req.cookies.jetonJWT;
+    const user = await getSSRData("user", token);
 
     return {
       props: {
@@ -80,7 +83,9 @@ export const getUserDetails: GetServerSideProps = async (context) => {
 
 export const getAllUsers: GetServerSideProps = async (context) => {
   try {
-    const users = (await getData(`users`, context)).data;
+    const token = context.req.cookies.jetonJWT;
+    const users = await getSSRData("users", token);
+
     return {
       props: {
         users,
