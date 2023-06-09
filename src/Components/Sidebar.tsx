@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 
 export const SideBar = () => {
   const router = useRouter();
-  const REFRECH_INTERVAL = 10000;
+  const REFRECH_INTERVAL = 1000;
   const userListData = useSWR<UserListData, Error>("usersList", UserFetcher, {
     refreshInterval: REFRECH_INTERVAL,
   }).data;
@@ -26,7 +26,7 @@ export const SideBar = () => {
   };
 
   return (
-    <Sidebar className="h-screen flex-initial bg-slate-400">
+    <Sidebar className="h-screen flex-initial">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           <Sidebar.Item href="/profile">
@@ -38,7 +38,7 @@ export const SideBar = () => {
           <Sidebar.Collapse label="Users">
             {userListData?.users?.map((user) => (
               <Sidebar.Item key={user.id}>
-                <Button onClick={() => router.push(`message/${user.id}`)}>
+                <Button onClick={() => router.push(`/message/${user.id}`)}>
                   {user.name}
                 </Button>
               </Sidebar.Item>
@@ -50,7 +50,7 @@ export const SideBar = () => {
             </Button>
             {channelListData?.channels?.map((channel) => (
               <Sidebar.Item key={channel.id}>
-                <Button onClick={() => router.push(`channel/${channel.id}`)}>
+                <Button onClick={() => router.push(`/channel/${channel.id}`)}>
                   {channel.name}
                 </Button>
               </Sidebar.Item>
