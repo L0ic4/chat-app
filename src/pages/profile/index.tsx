@@ -4,13 +4,19 @@ import { EditProfileForm } from "@/Components/profile/editProfileForm";
 import { getUserDetails } from "@/api/API";
 import { GetServerSideProps } from "next";
 import { UserData } from "@/utils/types";
+import Head from "next/head";
 
 const Index = ({ user }: { user: UserData }) => {
   return (
-    <FormLayout
-      title="Your profile"
-      component={<EditProfileForm user={user} />}
-    />
+    <>
+      <Head>
+        <title>YOUR PROFILE | Chat App</title>
+      </Head>
+      <FormLayout
+        title="Your profile"
+        component={<EditProfileForm user={user} />}
+      />
+    </>
   );
 };
 

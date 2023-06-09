@@ -7,6 +7,7 @@ import requireAuth from "@/security/ProtectedRoute";
 import router, { useRouter } from "next/router";
 import useSWR from "swr";
 import { MessageUserFetcher } from "@/utils/FetchData";
+import Head from "next/head";
 
 const MessageSender = () => {
   const {
@@ -76,22 +77,27 @@ const UserMessage = () => {
 
   const messages = userMessage?.messages?.slice().reverse();
   return (
-    <div className="bg-gray-100 w-full h-screen flex flex-col">
-      <div className="flex-grow p-4 overflow-y-auto">
-        {messages?.map((message) => (
-          <div
-            key={message.id}
-            className={
-              (message.senderId == id ? "text-right bg-blue-200" : "") +
-              " p-4 my-2 rounded-lg shadow-lg"
-            }
-          >
-            {message.content}
-          </div>
-        ))}
+    <>
+      <Head>
+        <title>{`USER: ${id} | Chat App`}</title>
+      </Head>
+      <div className="bg-gray-100 w-full h-screen flex flex-col">
+        <div className="flex-grow p-4 overflow-y-auto">
+          {messages?.map((message) => (
+            <div
+              key={message.id}
+              className={
+                (message.senderId == id ? "text-right bg-blue-200" : "") +
+                " p-4 my-2 rounded-lg shadow-lg"
+              }
+            >
+              {message.content}
+            </div>
+          ))}
+        </div>
+        <MessageSender />
       </div>
-      <MessageSender />
-    </div>
+    </>
   );
 };
 
